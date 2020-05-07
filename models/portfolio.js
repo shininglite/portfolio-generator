@@ -5,19 +5,26 @@ const Schema = mongoose.Schema;
 // use mongoose method Schema to create the structure for the collection "Book" (called 'books' in mongo)
 // THe schema defines the columns in the collection (table) and the data type in each column
 const portfolioSchema = new Schema({
-
-  user: { type: String, required true},
-  // password: {type: String, re}
-
-
-  // Example schema 
-  // title: { type: String, required: true },
-  // subtitle: { type: String },
-  // authors: { type: [String], required: true },
-  // link: { type: String, required: true },
-  // description: { type: String, required: true },
-  // image: { type: String, required: true },
-  // googleId: { type: String, required: true, unique: true }
+  user: {
+    type: String,
+    required: true,
+  },
+  projectName: {
+    type: String,
+    required: true,
+  },
+  activeFlag: {
+    type: Boolean,
+    required: false,
+  },
+  deploymentLink: {
+    type: String,
+    required: false,
+  },
+  repoLink: {
+    type: String,
+    required: true,
+  },
 });
 
 // create the Book model based on the schema
