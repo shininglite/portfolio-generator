@@ -1,4 +1,4 @@
-// default file that directs to book.js for the database schema
+// default file that directs to portfolio.js for the database schema
 module.exports = {
-  Book: require("./book")
+  Porfolio: require("./portfolio")
 };
