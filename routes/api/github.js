@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const portfolioController = require("../../controllers/githubController");
+const githubController = require("../../controllers/githubController");
 
 //
 router.route("/:id").get(githubController.findById);
