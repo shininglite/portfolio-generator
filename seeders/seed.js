@@ -4,6 +4,7 @@ let db = require("../models");
 mongoose.connect("mongodb://localhost/portfolio_db", {
   useNewUrlParser: true,
   useFindAndModify: false,
+  useUnifiedTopology: true,
 });
 
 let developerSeed = {

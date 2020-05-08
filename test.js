@@ -16,15 +16,12 @@ function updateDevDB(developerLoginName) {
       "https://api.github.com/search/repositories?q=user:" + developerLoginName
     )
     .then((data) => {
-      console.log("Hit githubAPI");
       gitHubData = data;
     })
     .then(() => {
-      console.log("About to read db");
       return db.Developer.findOne({ developerLoginName: developerLoginName });
     })
     .then((devData) => {
-      console.log("read db and then...");
       loadDB(devData, gitHubData);
     })
     .catch((err) => console.log(err));
@@ -36,14 +33,41 @@ mongoose.connect("mongodb://localhost/portfolio_db", {
 
 function loadDB(devData, gitHubData) {
   //
-  console.log(devData);
-  gitHubData.data.items.forEach((repo) => {
-    let githubID = repo.id;
-    console.log(githubID);
-    console.log(devData);
-  });
+  if (!gitHubData) {
+    return;
+  } else {
+    if (!devData) {
+      let devData = {
+        developerLoginName: gitHubData.data.items[0].owner.login,
+        developerGithubID: gitHubData.data.items[0].owner.id,
+      };
+      db.Developer.insertMany(devData);
+    }
+
+    gitHubData.data.items.forEach((repo) => {
+      updateRepo(repo, gitHubData.data.items[0].owner.id);
+    });
+  }
 }
-updateDevDB("srfrog1970");
+
+function updateRepo(repo, devID) {
+  // console.log(repo);
+  // console.log(devID);
+  if (!repo.description) {
+    repo.description = repo.name;
+  }
+  let repoDevData = {
+    repoName: repo.name,
+    repoDesc: repo.description,
+    activeFlag: false,
+    deploymentLink: "",
+    html_url: repo.html_url,
+    repoID: repo.id,
+  };
+  db.Repository.insertMany(repoDevData);
+}
+// updateDevDB("srfrog1970");
+updateDevDB("frunox");
 
 // async function getDev(devGithubID) {
 //   //

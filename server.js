@@ -1,6 +1,6 @@
 // load npm package express, primarily for the router
 const express = require("express");
-// import npm package mongoose, the ODM for mongo database 
+// import npm package mongoose, the ODM for mongo database
 const mongoose = require("mongoose");
 // set the /routes folder as default for any route declarations (defaults to index.js)
 const routes = require("./routes");
@@ -25,11 +25,12 @@ mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/portfolio_db",
   {
     useCreateIndex: true,
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   }
 );
 
-// Start the API server on port 3001 
+// Start the API server on port 3001
 app.listen(PORT, () =>
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`)
 );

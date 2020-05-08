@@ -3,7 +3,7 @@ const router = require("express").Router();
 
 // push all api routes here.
 const apiRoutes = require("./api");
-const utilRoutes = require("./util");
+// const utilRoutes = require("./util");
 
 // use these routes.
 router.use("/api", apiRoutes);
