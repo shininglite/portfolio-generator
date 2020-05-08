@@ -4,12 +4,12 @@ const Schema = mongoose.Schema;
 
 // use mongoose method Schema to create the structure for the collection "Book" (called 'books' in mongo)
 // THe schema defines the columns in the collection (table) and the data type in each column
-const portfolioSchema = new Schema({
-  user: {
+const repositorySchema = new Schema({
+  repoName: {
     type: String,
     required: true,
   },
-  projectName: {
+  repoDesc: {
     type: String,
     required: true,
   },
@@ -21,14 +21,18 @@ const portfolioSchema = new Schema({
     type: String,
     required: false,
   },
-  repoLink: {
+  html_url: {
     type: String,
+    required: true,
+  },
+  repoID: {
+    type: Number,
     required: true,
   },
 });
 
 // create the Book model based on the schema
-const Portfolio = mongoose.model("Portfolio", portfolioSchema);
+const Repository = mongoose.model("Repository", repositorySchema);
 
 // export the model, which ids the collection to be used in mongoose methods.
-module.exports = Portfolio;
+module.exports = Repository;

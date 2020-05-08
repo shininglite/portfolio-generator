@@ -1,4 +1,5 @@
-// default file that directs to portfolio.js for the database schema
+// default file that directs to developer.js for the database schema
 module.exports = {
-  Porfolio: require("./portfolio")
+  Developer: require("./developer"),
+  Repository: require("./repository"),
 };
