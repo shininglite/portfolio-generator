@@ -45,14 +45,15 @@ function loadDB(devData, gitHubData) {
     }
 
     gitHubData.data.items.forEach((repo) => {
+      // db.Repository.findOne({ repoID: repo.id }).catch(
+
+      // )
       updateRepo(repo, gitHubData.data.items[0].owner.id);
     });
   }
 }
 
 function updateRepo(repo, devID) {
-  // console.log(repo);
-  // console.log(devID);
   if (!repo.description) {
     repo.description = repo.name;
   }
@@ -64,7 +65,20 @@ function updateRepo(repo, devID) {
     html_url: repo.html_url,
     repoID: repo.id,
   };
-  db.Repository.insertMany(repoDevData);
+  db.Repository.insertMany(repoDevData).then((repoArray) => {
+    db.Developer.findOneAndUpdate(
+      { developerGithubID: devID },
+      {
+        $push: {
+          repositories: repoArray.map((element, key) => element._id),
+        },
+      },
+      { new: true }
+    ).catch((err) => {
+      console.error(err);
+      process.exit(1);
+    });
+  });
 }
 // updateDevDB("srfrog1970");
 updateDevDB("frunox");
