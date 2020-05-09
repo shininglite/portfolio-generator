@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Image, Menu } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import DevNav from "../components/DevNav";
 import DevHeader from "../components/DevHeader";
 import DevContainer from '../components/DevContainer'
