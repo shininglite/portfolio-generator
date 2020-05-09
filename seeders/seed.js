@@ -9,7 +9,7 @@ mongoose.connect("mongodb://localhost/portfolio_db", {
 
 let developerSeed = {
   developerLoginName: "srfrog1970",
-  developerGithubID: "1",
+  developerGithubID: "32324098",
 };
 
 let repositorySeed = [
