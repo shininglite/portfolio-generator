@@ -3,10 +3,10 @@ const router = require("express").Router();
 
 // Route to APIs by data source
 const githubRoutes = require("./github");
-const portfolioRoutes = require("./portfolio");
+const developerRoutes = require("./developer");
 
 router.use("/github", githubRoutes);
-router.use("/portfolio", portfolioRoutes);
+router.use("/developer", developerRoutes);
 
 // For anything else, render the html page
 router.use(function (req, res) {

@@ -2,6 +2,6 @@ const router = require("express").Router();
 const githubController = require("../../controllers/githubController");
 
 //
-router.route("/:id").get(githubController.findById);
+router.route("/").get(githubController.findAll);
 
 module.exports = router;
