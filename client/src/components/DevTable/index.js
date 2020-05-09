@@ -3,10 +3,10 @@ import React, { Component } from 'react'
 import { Table } from 'semantic-ui-react'
 
 const tableData = [
-    { name: 'John', age: 15, gender: 'Male' },
-    { name: 'Amber', age: 40, gender: 'Female' },
-    { name: 'Leslie', age: 25, gender: 'Other' },
-    { name: 'Ben', age: 70, gender: 'Male' },
+    { name: 'Project 1', description: "Project description", activeFlag: 'true', activate: "Y" },
+    { name: 'Employee_Tracker', description: "Project description", activeFlag: 'false', activate: "X" },
+    { name: 'Code-Quiz', description: "Project description", activeFlag: 'false', activate: "X" },
+    { name: 'Personal_Library', description: "Project description", activeFlag: 'false', activate: "X" },
 ]
 
 export default class DevTable extends Component {
@@ -46,28 +46,35 @@ export default class DevTable extends Component {
                             sorted={column === 'name' ? direction : null}
                             onClick={this.handleSort('name')}
                         >
-                            Name
-            </Table.HeaderCell>
+                            Repo Name
+                        </Table.HeaderCell>
                         <Table.HeaderCell
-                            sorted={column === 'age' ? direction : null}
-                            onClick={this.handleSort('age')}
+                            sorted={column === 'description' ? direction : null}
+                            onClick={this.handleSort('description')}
                         >
-                            Age
-            </Table.HeaderCell>
-                        <Table.HeaderCell
-                            sorted={column === 'gender' ? direction : null}
-                            onClick={this.handleSort('gender')}
+                            Description
+                        </Table.HeaderCell>
+                        <Table.HeaderCell width={2} textAlign='center'
+                            sorted={column === 'activeFlag' ? direction : null}
+                            onClick={this.handleSort('activeFlag')}
                         >
-                            Gender
-            </Table.HeaderCell>
+                            Active
+                        </Table.HeaderCell>
+                        <Table.HeaderCell width={2} textAlign='center' selectable
+                            sorted={column === 'activate' ? direction : null}
+                            onClick={this.handleSort('activate')}
+                        >
+                            Activate
+                        </Table.HeaderCell>
                     </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                    {_.map(data, ({ age, gender, name }) => (
+                    {_.map(data, ({ description, activeFlag, name, activate }) => (
                         <Table.Row key={name}>
                             <Table.Cell>{name}</Table.Cell>
-                            <Table.Cell>{age}</Table.Cell>
-                            <Table.Cell>{gender}</Table.Cell>
+                            <Table.Cell>{description}</Table.Cell>
+                            <Table.Cell textAlign='center'>{activeFlag}</Table.Cell>
+                            <Table.Cell textAlign='center'>{activate}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
