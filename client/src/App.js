@@ -1,26 +1,17 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Fragment } from 'react';
+import 'semantic-ui-css/semantic.min.css';
+import { Container } from 'semantic-ui-react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Developer from './pages/Developer';
+
+// import UserForm from './components/UserForm';
+// import "./App.css";
+
+const App = () => (
+  <Fragment>
+    <Developer />
+  </Fragment>
+);
+
 
 export default App;

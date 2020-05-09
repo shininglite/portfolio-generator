@@ -10,6 +10,7 @@ mongoose.connect("mongodb://localhost/portfolio_db", {
 // The function updateDevDB takes in an arguement called "developerLoginName".
 // This is the users github login id.
 function updateDevDB(developerLoginName) {
+
   var gitHubData;
 
   // Get the github user and repository data.
@@ -73,9 +74,11 @@ function loadDB(devData, gitHubData) {
       });
     });
   }
+
 }
 //  This will synch the two databases.
 function updateRepo(repo, devID) {
+
   // Set the repo.description to the repo name if it is null (This is a required field)
   if (!repo.description) {
     repo.description = repo.name;
