@@ -16,7 +16,7 @@ const developerSchema = new Schema({
   repositories: [
     {
       type: Schema.Types.ObjectId,
-      ref: "repositories",
+      ref: "Repositories",
     },
   ],
 });

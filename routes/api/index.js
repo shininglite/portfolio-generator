@@ -10,7 +10,7 @@ router.use("/developer", developerRoutes);
 
 // For anything else, render the html page
 router.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../../client/scr/index.html"));
 });
 
 module.exports = router;
