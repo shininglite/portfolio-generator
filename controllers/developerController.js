@@ -6,7 +6,7 @@ module.exports = {
     console.log("ID", req.params.id);
     // TODO: Populate does not work?!?!?
     db.Developer.findOne({ developerLoginName: req.params.id })
-      .populate("Repositories")
+      .populate("repositories")
       .exec((err, dbDeveloper) => {
         if (err) {
           console.log("error");
