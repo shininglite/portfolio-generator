@@ -1,12 +1,12 @@
-// import axios from "axios"; //TODO: Why are we importing axios in client\src\utils\API.js and we set axios to a const in controllers\googleController.js?
+import axios from "axios";
 
-// export default {
-//   // Gets all saved Portfolios
-//   getPortfolio: function () {
-//     return axios.get("/api/:id");
-//   },
-//   // Saves an Portfolio to the database
-//   savePortfolio: function (PortfolioData) {
-//     return axios.post("/api/Portfolio", portfolioData);
-//   },
-// };
+export default {
+    // Gets all saved Portfolios
+    getDeveloper: function (id) {
+        return axios.get("/api/developer/" + id);
+    },
+    // Saves an Portfolio to the database
+    //   savePortfolio: function (PortfolioData) {
+    //     return axios.post("/api/Portfolio", portfolioData);
+    //   },
+};
