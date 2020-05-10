@@ -1,19 +1,28 @@
+import axios from 'axios'
 import _ from 'lodash'
 import React, { Component } from 'react'
 import { Table } from 'semantic-ui-react'
+import API from '../../utils/API'
 
-const tableData = [
-    { name: 'Project 1', description: "Project description", activeFlag: 'true', activate: "Y" },
-    { name: 'Employee_Tracker', description: "This is a very long description intended to stretch past the end of the column.", activeFlag: 'false', activate: "X" },
-    { name: 'Code-Quiz', description: "Project description", activeFlag: 'false', activate: "X" },
-    { name: 'Personal_Library', description: "Project description", activeFlag: 'false', activate: "X" },
-]
+// const tableData = [
+//     { name: 'Project 1', description: "Project description", activeFlag: 'true', activate: "Y" },
+//     { name: 'Employee_Tracker', description: "This is a very long description intended to stretch past the end of the column.", activeFlag: 'false', activate: "X" },
+//     { name: 'Code-Quiz', description: "Project description", activeFlag: 'false', activate: "X" },
+//     { name: 'Personal_Library', description: "Project description", activeFlag: 'false', activate: "X" },
+// ]
 
 export default class DevTable extends Component {
     state = {
         column: null,
         data: tableData,
         direction: null,
+    }
+
+    componentDidMount = () => {
+        API.getDeveloper("frunox")
+            .then(res => this.setState({
+                tableData: res.data
+            }));
     }
 
     handleSort = (clickedColumn) => () => {
@@ -38,7 +47,7 @@ export default class DevTable extends Component {
     changeFlag = () => (id, value) => {
         const { data } = this.state
 
-        console.log('clicked', value)
+        console.log('clicked', id, value)
 
         // if (column !== clickedColumn) {
         //     this.setState({
