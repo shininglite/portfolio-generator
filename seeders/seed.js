@@ -16,7 +16,8 @@ let repositorySeed = [
   {
     repoName: "Password Generator",
     repoDesc: "A Password Generator program",
-    activeFlag: true,
+    activeFlag: false,
+    archiveFlag: false,
     deploymentLink: "https://deploymentlink6",
     html_url: "https://htmlURL6",
     repoID: "245070311",
@@ -27,7 +28,7 @@ async function queryDatabase(developerSeed, repositorySeed) {
   // Insert the developer
   await db.Developer.insertMany(developerSeed).then(async (devArray) => {
     // insert the repositories
-    await db.Repository.insertMany(repositorySeed).then(async (repoArray) => {
+    await db.Repositories.insertMany(repositorySeed).then(async (repoArray) => {
       // Find the developer and push the array of repository ids.
       // TODO: devArray is available because it is a "Upper" level function?  And again available in the findOneAndUpdate function because it is a "Upper" level function?  Same with devID.
       devID = devArray[0]._id;
@@ -50,7 +51,7 @@ async function queryDatabase(developerSeed, repositorySeed) {
 }
 
 async function initSeeds() {
-  db.Repository.deleteMany({}, () => "");
+  db.Repositories.deleteMany({}, () => "");
   db.Developer.deleteMany({}, () => "");
   await queryDatabase(developerSeed, repositorySeed);
   process.exit(0);
