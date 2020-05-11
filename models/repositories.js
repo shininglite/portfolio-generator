@@ -14,7 +14,8 @@ const repositoriesSchema = new Schema({
     required: true,
   },
   activeFlag: {
-    type: Boolean,
+    type: String,
+    default: 'false',
     required: false,
   },
   archiveFlag: {

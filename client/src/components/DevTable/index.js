@@ -6,7 +6,7 @@ import API from "../../utils/API";
 import './style.css'
 var id;
 
-const tableData = [
+let tableData = [
   //     { name: 'Project 1', description: "Project description", activeFlag: 'true', activate: "Y" },
   //     { name: 'Employee_Tracker', description: "This is a very long description intended to stretch past the end of the column.", activeFlag: 'false', activate: "X" },
   //     { name: 'Code-Quiz', description: "Project description", activeFlag: 'false', activate: "X" },
@@ -16,7 +16,7 @@ const tableData = [
 export default class DevTable extends Component {
   state = {
     column: null,
-    data: tableData,
+    data: null,
     direction: null,
   };
 
@@ -27,7 +27,9 @@ export default class DevTable extends Component {
         this.setState({
           data: res.data.repositories
         })
-        console.log('success', res.data.repositories[1].repoName, res.data.repositories[1].activeFlag)
+        console.log('success', res.data.repositories[1].repoName, res.data.repositories[1].activeFlag);
+        tableData = res.data.repositories
+        console.log(tableData)
       })
   }
 
