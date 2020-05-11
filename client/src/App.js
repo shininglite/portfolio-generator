@@ -1,30 +1,33 @@
-import React, { Fragment } from 'react';
+import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import 'semantic-ui-css/semantic.min.css';
-
-import Home from './pages/Home';
-import Developer from './pages/Developer';
-import Login from './pages/Login';
+import Developer from "./pages/Developer";
 import NoMatch from "./pages/NoMatch";
+import About from "./pages/About";
+import Home from "./pages/Home";
+import Contact from "./pages/Contact";
 
-// import UserForm from './components/UserForm';
-// import "./App.css";
+// Here is another way to set up imports.  I only did this on the about page to show how. Check out how the About pages exports.  You will need the curly brackets when importing.
+import { Layout } from "./components/Layout";
+import { NavigationBar } from "./components/HomeNav";
 
 const App = () => {
-  console.log('in App')
+  console.log("in App");
   return (
-    <Router>
-      <Fragment>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/user" component={Developer} />
-          <Route exact path="/login" component={Login} />
-          <Route component={NoMatch} />
-        </Switch>
-      </Fragment>
-    </Router>
-  )
+    <React.Fragment>
+      <Layout>
+        <Router>
+          <NavigationBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/Developer" component={Developer} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
+      </Layout>
+    </React.Fragment>
+  );
 };
-
 
 export default App;

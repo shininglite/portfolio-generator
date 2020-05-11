@@ -1,6 +1,7 @@
 let mongoose = require("mongoose");
 let db = require("../models");
 
+// TODO: I think the connection is an async call and we need to wait (doesn't work the first time you run it.)
 mongoose.connect("mongodb://localhost/portfolio_db", {
   useNewUrlParser: true,
   useFindAndModify: false,
@@ -10,6 +11,9 @@ mongoose.connect("mongodb://localhost/portfolio_db", {
 let developerSeed = {
   developerLoginName: "srfrog1970",
   developerGithubID: "32324098",
+  fname: "Shawn",
+  lname: "Hayes",
+  lemail: "shawn@email.com",
 };
 
 let repositorySeed = [

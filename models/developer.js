@@ -19,6 +19,18 @@ const developerSchema = new Schema({
       ref: "Repositories",
     },
   ],
+  fname: {
+    type: String,
+    required: false,
+  },
+  lname: {
+    type: String,
+    required: false,
+  },
+  email: {
+    type: String,
+    required: false,
+  },
 });
 
 // create the Book model based on the schema
