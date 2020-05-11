@@ -5,6 +5,7 @@ import NoMatch from "./pages/NoMatch";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
+import Signin from "./pages/Signin/Signin";
 
 // Here is another way to set up imports.  I only did this on the about page to show how. Check out how the About pages exports.  You will need the curly brackets when importing.
 import { Layout } from "./components/Layout";
@@ -22,6 +23,7 @@ const App = () => {
             <Route exact path="/contact" component={Contact} />
             <Route exact path="/about" component={About} />
             <Route exact path="/Developer" component={Developer} />
+            <Route exact path="/Signin" component={Signin} />
             <Route component={NoMatch} />
           </Switch>
         </Router>
