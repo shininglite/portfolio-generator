@@ -1,18 +1,16 @@
 /* eslint-disable max-len */
 
-import React from 'react'
-// import { Container } from 'semantic-ui-react'
+import React, { Fragment } from 'react'
+// import { Divider } from 'semantic-ui-react'
 import "./style.css";
 
 const DevContainer = () => (
-    <p className="text">
-        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
-        ligula eget dolor. Aenean massa strong. Cum sociis natoque penatibus et
-        magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
-        ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
-        quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
-        arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+    <Fragment>
+        <p className="pText">
+            Welcome to Portfolio Generator.  Review your public repositories below.  Repos with activeFlag = true will display on the home page.  Click on a repo row and change the activeFlag, or add a deployment link.
     </p>
+        <hr />
+    </Fragment>
 )
 
 export default DevContainer

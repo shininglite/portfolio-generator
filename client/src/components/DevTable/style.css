@@ -1,0 +1,4 @@
+.devTable {
+  height: 260px;
+  overflow-y: scroll; /* or auto */
+}
