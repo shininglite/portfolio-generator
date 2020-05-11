@@ -1,26 +1,13 @@
-import React, { Component } from "react";
-import { Container } from 'semantic-ui-react';
-import HomeNav from "../components/HomeNav";
-import HomeHeader from "../components/HomeHeader";
-import HomeContainer from '../components/HomeContainer'
+import React from "react";
+import { Jumbotron } from "../components/JumboTron";
 
-
-class Home extends Component {
-    state = {
-        books: []
-    };
-
-    render() {
-        return (
-            <div>
-                <HomeNav />
-                <Container>
-                    <HomeHeader />
-                    <HomeContainer />
-                </Container>
-            </div>
-        );
-    }
+function Home() {
+  return (
+    <div>
+      <Jumbotron></Jumbotron>
+      <h2>Home.js - Start Here!</h2>
+    </div>
+  );
 }
 
 export default Home;
