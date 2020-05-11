@@ -2,5 +2,6 @@
     "cSpell.words": [
         "sfrog",
         "srfrog"
-    ]
+    ],
+    "git.ignoreLimitWarning": true
 }
