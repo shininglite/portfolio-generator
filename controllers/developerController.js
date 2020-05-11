@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 module.exports = {
   findById: function (req, res) {
+    console.log('6. in /controllers/developerController.js server side')
     console.log("ID", req.params.id);
     // TODO: Populate does not work?!?!?
     db.Developer.findOne({ developerLoginName: req.params.id })
@@ -12,7 +13,8 @@ module.exports = {
           console.log("error");
           return res.json(err);
         } else {
-          console.log("No error");
+          console.log("No error in controller");
+          console.log(req.params.id)
           return res.json(dbDeveloper);
         }
       });

@@ -4,7 +4,7 @@ const router = require("express").Router();
 // push all api routes here.
 const apiRoutes = require("./api");
 // const utilRoutes = require("./util");
-
+console.log('3. in /routes/index.js server side')
 // use these routes.
 router.use("/api", apiRoutes);
 router.use("/util", apiRoutes);
