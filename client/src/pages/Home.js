@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Jumbotron } from "../components/JumboTron";
+import PortCards from "../components/PortCards/portCards";
+import SearchBar from "../components/SearchBar/searchBar";
+import { Container } from "react-bootstrap";
+import API from "../utils/API";
 
 function Home() {
+  const [devData, setdevData] = useState({
+    repositories: [],
+    developerLoginName: "",
+    developerGithubID: "",
+    fname: "",
+    lname: "",
+    email: "",
+  });
+
+  useEffect(() => {
+    API.getDeveloper("srfrog1970").then((res) => {
+      setdevData(res.data);
+    });
+  }, []);
+
   return (
     <div>
       <Jumbotron></Jumbotron>
-      <h2>Home.js - Start Here!</h2>
+      <Container>
+        <SearchBar></SearchBar>
+      </Container>
+      <Container>
+        <PortCards repositories={devData.repositories}></PortCards>
+      </Container>
     </div>
   );
 }
