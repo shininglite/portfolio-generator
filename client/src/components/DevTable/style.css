@@ -2,3 +2,9 @@
   height: 260px;
   overflow-y: scroll; /* or auto */
 }
+
+.formBox {
+  border: 1px solid black;
+  margin-top: 5px;
+  font-size: 1.2rem;
+}
