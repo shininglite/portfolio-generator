@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export default {
-
   //
 
   // Send in the github user name
   getDevData: function (githubUserName) {
-    return axios.get("/api/developer/" + githubUserName);
+    console.log("API Route");
+    return axios.get("/api/devData/" + githubUserName);
   },
 
   // Saves the developer data.  You will need to send in the githubID in params and any fields you want to update in the developerData field.  It will update only those you send in.
@@ -18,7 +18,8 @@ export default {
   // Call this function to find the active Developer.  You do not need to pass anything in.  If none are active, it is not setup yet.
 
   getActiveDeveloper: function () {
-    return axios.get("/api/developer/active/get");
+    console.log("Getting active Dev");
+    return axios.get("/api/devData/active");
   },
 
   // Saves the developer data.  You will need to send in the githubID in params and any fields you want to update in the developerData field (This is one to many)
@@ -26,5 +27,4 @@ export default {
   updateRepositories: function (id, repositoriesData) {
     return axios.post("/api/repositories/" + id, repositoriesData);
   },
-
 };

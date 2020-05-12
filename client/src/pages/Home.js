@@ -16,8 +16,9 @@ function Home() {
   });
 
   useEffect(() => {
-    API.getDeveloper("srfrog1970").then((res) => {
+    API.getActiveDeveloper().then((res) => {
       setdevData(res.data);
+      console.log("res.data!!", res.data);
     });
   }, []);
 

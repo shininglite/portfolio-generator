@@ -13,9 +13,8 @@ import { Layout } from "./components/Layout";
 import { NavigationBar } from "./components/HomeNav";
 
 API.getActiveDeveloper()
-  .then((err, repositiesData) => {
-    if (err) {
-      // promptForId();
+  .then((repositiesData) => {
+    if (repositiesData) {
       console.log("ERROR!!!");
     } else {
       if (!repositiesData) {
