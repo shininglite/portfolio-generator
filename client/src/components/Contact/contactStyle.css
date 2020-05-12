@@ -1,0 +1,8 @@
+.contactContainer{
+    padding-top: 30px;
+}
+
+/* FIXME: Sizing text box not working */
+.textBox{
+    height: 70px;
+}
