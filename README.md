@@ -2,17 +2,44 @@
 
 ## Table of Contents
 
-### [Description](#description)
-### [Why Portfolio Generator](#why%20portfolio%20generator)
-### [How Portfolio Generator Works](#how%20portfolio%20generator%20works)
-### [Installation](#installation)
-### [Usage](#usage)
-### [Features](#features)
-### [Technologies Used](#technologies%20used)
-### [License](#license)
-### [Total GitHub Downloads](#total%20github%20downloads)
-### [Contributors](#contributors)
-### [Screen Shots](#screen%20shots)
+[Description](#description)
+
+[Why Portfolio Generator](#why%20portfolio%20generator)
+
+[How Portfolio Generator Works](#how%20portfolio%20generator%20works)
+
+[Technologies Used](#technologies%20used)
+
+[MERN Stack](#mern%20stack)
+
+[Libraries](#libraries)
+
+[Installation](#installation)
+
+[Usage](#usage)
+
+[Getting Started](#getting%20started)
+
+[Create Account or Sign In](#create%20account%20or%20sign%20in)
+
+[Portfolio List](#portfolio%20list)
+
+[Features](#features)
+
+[Contributors](#contributors)
+
+[License](#license)
+
+[Screen Shots](#screen%20shots)
+
+[Create Account](#create%20account)
+
+[Portfolio List](#portfolio%20list)
+
+[Total Github Downloads](#total%20githubdown%20loads)
+
+[Create React App](#create%20react%20app)
+
 
 ### Description
 
@@ -26,60 +53,72 @@ Developers have limited time to devote to creating an attractive way to display 
 
 This application allows a developer to retrieve their GitHub projects and select any or all of those to automatically create an attractive portfolio.
 
-Functional Description
-Technical Description
-
 ### Technologies Used
 
-Profile Generator is a full-stack application. Full-stack means the application uses client side technologies such as HTML (hypertext markup language), CSS (cascading style sheets) and the JavaScript programming, and server side technologies such as Express, Node, and MongoDB. We chose to use the MERN stack of open source software.
+Profile Generator is a full-stack application, using client side and server side technologies. Client side technologies used include HTML (hypertext markup language), CSS (cascading style sheets) and the JavaScript programming. Server side technologies used are Express, Node, and MongoDB. We chose to use the MERN stack of open source software.
+
+#### MERN Stack
 
 The MERN stack is:
 
-<a href="https://www.mongodb.com/">Mongo DB</a> A popular server-side database.
+<a href="https://www.mongodb.com/">Mongo DB</a>, a popular server-side database.
 
-<a href="https://expressjs.com/en/starter/installing.html">Express JS</a> A minimalist web framework that provides features for developing web and mobile applications.
+<a href="https://expressjs.com/en/starter/installing.html">Express JS</a>, a minimalist web framework that provides features for developing web and mobile applications.
 
-<a href="https://reactjs.org/">React JS</a> A JavaScript library for building user interfaces.
+<a href="https://reactjs.org/">React JS</a>, a JavaScript library for building user interfaces.
 
-<a href="https://nodejs.org/en/">Node JS</a> Server side JavaScript built on Chrome's V8 JavaScript engine.
+<a href="https://nodejs.org/en/">Node JS</a>, server-side JavaScript built on Chrome's V8 JavaScript engine.
 
 #### Libraries
 
-Portfolio Generator uses Semantic UI. 
+Portfolio Generator uses:
 
-<a href="https://semantic-ui.com/">Semantic UI</a> A modern front-end development framework, powered by
+<a href="https://react.semantic-ui.com/">React Semantic UI</a>, a modern front-end development framework, powered by
 
-<a href="https://lesscss.org/">Less CSS</a> which stands for Leaner Style Sheets. Less CSS is a backwards-compatible language extension for CSS and uses
+<a href="https://lesscss.org/">Less CSS</a> which stands for Leaner Style Sheets. Less CSS is a backwards-compatible language extension for CSS
 
-<a href="https://jquery.com/">jQuery</a> A JavaScript library
-
-
-At a minimum, your project README needs a title and a short description explaining the what, why, and how. What was your motivation? Why did you build this project? (Note: The answer is not "Because it was a homework assignment.") What problem does it solve? What did you learn? What makes your project stand out? If your project has a lot of features, consider adding a heading called "Features" and listing them here.
-
-If you're new to Markdown, read the GitHub guide on [Mastering Markdown](https://guides.github.com/features/mastering-markdown/).
-
-If you need an example of a good README, check out [the VSCode repository](https://github.com/microsoft/vscode).
+<a href="https://https://react-bootstrap.github.io/">React Bootstrap</a> is a client-side CSS library rebuilt with true React components without unneeded dependencies like jQuery.
 
 ### Installation
 
-Clone from GitHub repository to local machine.
-Mongo installed
-Node installed
-Configure database file for local settings
-Open config file for database is set to XYZ, or if there is a seeds file for seeding data.
-Go to project folder
-NPM install
-NPM start
-
+- install mongoDB
+- install node.js
+- install google chrome browser
+- go to <a href="https://github.com/shininglite/portfolio-generator">Portfolio Generator Repository</a>  - and click the "Clone or download" button
+- copy the command that is now below that button (`git@github.com:shininglite/portfolio-generator.git`)
+- cd to the folder where you have your projects on your local machine
+- type "`git clone git@github.com:shininglite/portfolio-generator.git`"
+- cd to portfolio-generator folder that was just created with the above command
+- type "`npm install`" to create a package.json file
+- cd to client directory and type "npm install"
+- type "`npm start`" to run the application
+- go to chrome browser and type "`localhost:3000`" in the search bar
 
 ### Usage 
 
-Provide instructions and examples for use. Include screenshots as needed. 
-GIFs or Screencastify video 
-Code snippets at bottom of readme.
+#### Getting Started
+The first time you type "`npm start`" you will be prompted to enter your GitHub username.
+
+#### Welcome Screen
+
+<img src="client/src/assets/LocalhostWelcome.png" alt="Enter GitHub Name">
+
+Enter your GitHub user name and choose OK
+
+#### Create Account or Sign In
+You are then prompted to create an account (or sign in if you have already created an account). An account is needed so that your GitHub username is retained in the Mongo database. The database retains your curated list of projects to publish to your portfolio.
+
+<img src="client/src/assets/CreateAccount.png" alt="Create Account Screen Shot">
+
+#### Portfolio List
+Once you have created an account or signed in, you will see a list of your GitHub projects (repositories). Click the project row, or rows, that you want to activate. Activated projects will appear in your final portfolio.
+
+<img src="client/src/assets/PortfolioList.png" alt="Portfolio Generator Screen Shot">
+
+### Features
+We are proud of our work and hope you like it as well. Working together, we created a minimum viable product in 10 days, including: concept, design, database schema, choice of tools and methods, use instructions, documentation, and a live presentation.
 
 ### Contributors
-
 John Cannon     
 <a href="https://github.com/frunox/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
 
@@ -92,123 +131,17 @@ Tom van Deusen
 Yeng Vang       
 <a href="https://github.com/YengHV/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
 
-If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section.
-
-If you followed tutorials, include links to those here as well.
-
 ### License
 
- This source code is available to everyone under the standard MIT license.<a href="https://opensource.org/licenses/MIT">MIT license</a>
+ This source code is available to everyone under the standard <a href="https://opensource.org/licenses/MIT">MIT license</a>
 
  ![badmath](https://img.shields.io/github/license/shininglite/portfolio-generator)
 
-
-## Badges
-<!-- Total github downloads: 	/github/downloads/:user/:repo/total -->
-Total GitHub Downloads
-
+### Total GitHub Downloads
 ![Total github downloads](https://img.shields.io/github/downloads/shininglite/portfolio-generator/total)
 
-![badmath](https://img.shields.io/github/languages/top/nielsenjared/badmath)
+### Create React App
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-Badges aren't _necessary_, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-
-## Developers
-
-If you created an application or package and would like other developers to contribute it, you will want to add guidelines for how to do so. The [Contributor Covenant](https://www.contributor-covenant.org/) is an industry standard, but you can always write your own.
-
-## Tests
-
-
-
-
----
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
-### Screen Shots
-
-#### Welcome Screen
-
-<img src="client/src/assets/WelcomeScreen.png" alt="Welcome Screen">
-
-#### Create Account
-
-<img src="client/src/assets/CreateAccount.png" alt="Create Account Screen Shot">
-
-#### Portfolio List
-
-<img src="client/src/assets/PortfolioList.png" alt="Portfolio Generator Screen Shot">
-
-### Return to [Table of Contents](#tablecontents)
 
 
