@@ -7,12 +7,15 @@ const repositoriesRoutes = require("./repositories");
 const devDataRoute = require("./devData");
 
 router.use("/developer", developerRoutes);
+
 router.use("/repositories", repositoriesRoutes);
 //
 // This route is to update (and create) a Developer with their github repositories.
 // (Write out the first developer and repository data together)
 router.use("/devData", devDataRoute);
 //
+
+
 
 // For anything else, render the html page
 router.use(function (req, res) {

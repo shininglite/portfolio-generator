@@ -1,0 +1,7 @@
+.cardstyle {
+  display: flex;
+  flex-direction: column;
+  width: "18rem";
+  height: "55rem";
+  background-color: #e48d8d;
+}

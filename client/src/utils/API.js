@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export default {
+
   //
 
   // Send in the github user name
@@ -25,4 +26,5 @@ export default {
   updateRepositories: function (id, repositoriesData) {
     return axios.post("/api/repositories/" + id, repositoriesData);
   },
+
 };
