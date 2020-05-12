@@ -6,10 +6,25 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import Contact from "./pages/Contact";
 import Signin from "./pages/Signin/Signin";
+import API from "./utils/API";
 
 // Here is another way to set up imports.  I only did this on the about page to show how. Check out how the About pages exports.  You will need the curly brackets when importing.
 import { Layout } from "./components/Layout";
 import { NavigationBar } from "./components/HomeNav";
+
+API.getActiveDeveloper()
+  .then((err, repositiesData) => {
+    if (err) {
+      // promptForId();
+      console.log("ERROR!!!");
+    } else {
+      if (!repositiesData) {
+        // TODO: Prompt for github ID
+        console.log("Init Application");
+      }
+    }
+  })
+  .catch();
 
 const App = () => {
   console.log("in App");
