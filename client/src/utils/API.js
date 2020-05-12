@@ -1,12 +1,30 @@
 import axios from "axios";
 
 export default {
-  // Gets all saved Portfolios
-  getDeveloper: function (id) {
-    return axios.get("/api/developer/" + id);
+  //
+
+  // Send in the github user name
+  getDevData: function (githubUserName) {
+    console.log("API Route");
+    return axios.get("/api/devData/" + githubUserName);
   },
-  // Saves an Portfolio to the database
-  //   savePortfolio: function (PortfolioData) {
-  //     return axios.post("/api/Portfolio", portfolioData);
-  //   },
+
+  // Saves the developer data.  You will need to send in the githubID in params and any fields you want to update in the developerData field.  It will update only those you send in.
+
+  updateDeveloper: function (id, developerData) {
+    return axios.post("/api/developer/" + id, developerData);
+  },
+
+  // Call this function to find the active Developer.  You do not need to pass anything in.  If none are active, it is not setup yet.
+
+  getActiveDeveloper: function () {
+    console.log("Getting active Dev");
+    return axios.get("/api/devData/active");
+  },
+
+  // Saves the developer data.  You will need to send in the githubID in params and any fields you want to update in the developerData field (This is one to many)
+
+  updateRepositories: function (id, repositoriesData) {
+    return axios.post("/api/repositories/" + id, repositoriesData);
+  },
 };

@@ -31,6 +31,10 @@ const developerSchema = new Schema({
     type: String,
     required: false,
   },
+  active: {
+    type: Boolean,
+    required: false,
+  },
 });
 
 // create the Book model based on the schema
