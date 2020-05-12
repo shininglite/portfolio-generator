@@ -6,14 +6,8 @@ import "./Signin.css";
 
 
 function SignIn() {
-  // return (
-  //   <div>
-  //   <SigninComp></SigninComp>
-  //   <CreateAccountComp></CreateAccountComp>
-  //   </div>
 
-  // )
-  let isLoggedIn = false;
+  let isLoggedIn = true;
 
     if (isLoggedIn) {
       return <div><SigninComp isLoggedIn={true}></SigninComp></div>
