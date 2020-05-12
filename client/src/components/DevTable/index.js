@@ -4,7 +4,7 @@ import React, { Component, Fragment } from "react";
 import { Table, Form } from "semantic-ui-react";
 import API from "../../utils/API";
 import './style.css'
-var id;
+var id = -1;
 
 var tableData = []
 
@@ -14,6 +14,7 @@ export default class DevTable extends Component {
     column: null,
     data: null,
     direction: null,
+    rowClick: -1,
   };
 
   componentDidMount = () => {
@@ -74,6 +75,9 @@ export default class DevTable extends Component {
   showDevRepo = (id) => {
     console.log('clicked', id)
     console.log(tableData[id]._id)
+    this.setState({
+      rowClick: id
+    });;
     // if (tableData[id].activeFlag === 'false') {
     //   tableData[id].activeFlag = 'true';
     // } else {
@@ -83,7 +87,7 @@ export default class DevTable extends Component {
   };
 
   render() {
-    const { column, data, direction } = this.state;
+    const { column, data, direction, rowClick } = this.state;
 
     return (
       <Fragment>
@@ -112,17 +116,25 @@ export default class DevTable extends Component {
                 >
                   Active
             </Table.HeaderCell>
+                <Table.HeaderCell
+                  width={2}
+                  textAlign="center"
+                  sorted={column === "archiveFlag" ? direction : null}
+                  onClick={this.handleSort("archiveFlag")}
+                >
+                  archiveFlag
+            </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               {_.map(
                 data,
-                ({ repoDesc, activeFlag, repoName, repoId }, index) => (
+                ({ repoDesc, activeFlag, repoName, archiveFlag }, index) => (
                   <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
                     <Table.Cell>{repoName}</Table.Cell>
                     <Table.Cell>{repoDesc}</Table.Cell>
                     <Table.Cell textAlign="center">{activeFlag}</Table.Cell>
-                    {/* <Table.Cell id={index} value={index} textAlign='center' selectable onClick={e => this.changeFlag(e.target.id)}>{activate}</Table.Cell> */}
+                    <Table.Cell textAlign="center">{String(archiveFlag)}</Table.Cell>
                   </Table.Row>
                 )
               )}
@@ -130,24 +142,27 @@ export default class DevTable extends Component {
           </Table >
         </div >
         <div className="formBox">
-          <Form inverted>
-            <Form.Group widths='equal'>
-              <Form.Field label='ActiveFlag Value: ' control='input' />
-              <Form.Field label='An HTML <select>' control='select'>
-                <option value='true'>True</option>
-                <option value='false'>False</option>
-              </Form.Field>
-            </Form.Group>
-            <Form.Group widths='equal'>
-              <Form.Field label='ActiveFlag Value: ' control='input' />
-            </Form.Group>
-            <Form.Field label='Submit' control='button'>
-              Submit
+          {rowClick >= 0 &&
+            <Form inverted>
+              <Form.Group widths='equal'>
+                <Form.Field label='ActiveFlag Value: ' control='input' />
+                <Form.Field label='An HTML <select>' control='select'>
+                  <option value='true'>True</option>
+                  <option value='false'>False</option>
+                </Form.Field>
+              </Form.Group>
+              <Form.Group widths='equal'>
+                <Form.Field label='ActiveFlag Value: ' control='input' />
+              </Form.Group>
+              <Form.Field label='Submit' control='button'>
+                Submit
           </Form.Field>
-          </Form>
+            </Form>
+          }
+
         </div>
 
-      </Fragment>
+      </Fragment >
     );
   }
 }
