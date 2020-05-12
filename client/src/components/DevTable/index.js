@@ -6,9 +6,10 @@ import API from "../../utils/API";
 import './style.css'
 var id;
 
-let tableData = []
+var tableData = []
 
 export default class DevTable extends Component {
+
   state = {
     column: null,
     data: null,
@@ -16,15 +17,16 @@ export default class DevTable extends Component {
   };
 
   componentDidMount = () => {
-    console.log('in componentDidMount')
-    API.getDeveloper("srfrog1970")
+    console.log('1.  in componentDidMount')
+    API.getActiveDeveloper()
       .then(res => {
         this.setState({
           data: res.data.repositories
         })
-        console.log('success', res.data.repositories[1].repoName, res.data.repositories[1].activeFlag);
+        console.log('7. success', res.data.repositories[0].repoName, res.data.repositories[0].activeFlag);
         tableData = res.data.repositories
         console.log(tableData)
+
       })
   }
 
@@ -47,14 +49,37 @@ export default class DevTable extends Component {
     });
   };
 
+  handleInputChange = event => {
+    // Getting the value and name of the input which triggered the change
+    let value = event.target.value;
+    const name = event.target.name;
+
+    // Updating the input's state
+    this.setState({
+      [name]: value
+    });
+  };
+
+
   changeFlag = (id) => {
-    console.log('clicked', id, tableData[id].activeFlag)
+    console.log('clicked', id)
     if (tableData[id].activeFlag === 'false') {
       tableData[id].activeFlag = 'true';
     } else {
       tableData[id].activeFlag = 'false';
     }
     console.log(tableData[id].activeFlag)
+  };
+
+  showDevRepo = (id) => {
+    console.log('clicked', id)
+    console.log(tableData[id]._id)
+    // if (tableData[id].activeFlag === 'false') {
+    //   tableData[id].activeFlag = 'true';
+    // } else {
+    //   tableData[id].activeFlag = 'false';
+    // }
+    // console.log(tableData[id].activeFlag)
   };
 
   render() {
@@ -87,25 +112,17 @@ export default class DevTable extends Component {
                 >
                   Active
             </Table.HeaderCell>
-                <Table.HeaderCell
-                  width={2}
-                  textAlign="center"
-                  sorted={column === "activate" ? direction : null}
-                  onClick={this.handleSort("activate")}
-                >
-                  Activate
-            </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               {_.map(
                 data,
-                ({ repoDesc, activeFlag, repoName, activate }, index) => (
-                  <Table.Row key={index}>
+                ({ repoDesc, activeFlag, repoName, repoId }, index) => (
+                  <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
                     <Table.Cell>{repoName}</Table.Cell>
                     <Table.Cell>{repoDesc}</Table.Cell>
                     <Table.Cell textAlign="center">{activeFlag}</Table.Cell>
-                    <Table.Cell id={index} value={index} textAlign='center' selectable onClick={e => this.changeFlag(e.target.id)}>{activate}</Table.Cell>
+                    {/* <Table.Cell id={index} value={index} textAlign='center' selectable onClick={e => this.changeFlag(e.target.id)}>{activate}</Table.Cell> */}
                   </Table.Row>
                 )
               )}
@@ -121,29 +138,11 @@ export default class DevTable extends Component {
                 <option value='false'>False</option>
               </Form.Field>
             </Form.Group>
-            <Form.Group grouped>
-              <label>HTML radios</label>
-              <Form.Field
-                label='This one'
-                control='input'
-                type='radio'
-                name='htmlRadios'
-              />
-              <Form.Field
-                label='That one'
-                control='input'
-                type='radio'
-                name='htmlRadios'
-              />
+            <Form.Group widths='equal'>
+              <Form.Field label='ActiveFlag Value: ' control='input' />
             </Form.Group>
-            <Form.Group grouped>
-              <label>HTML checkboxes</label>
-              <Form.Field label='This one' control='input' type='checkbox' />
-              <Form.Field label='That one' control='input' type='checkbox' />
-            </Form.Group>
-            <Form.Field label='An HTML <textarea>' control='textarea' rows='3' />
-            <Form.Field label='An HTML <button>' control='button'>
-              HTML Button
+            <Form.Field label='Submit' control='button'>
+              Submit
           </Form.Field>
           </Form>
         </div>
