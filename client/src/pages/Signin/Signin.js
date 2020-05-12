@@ -1,6 +1,6 @@
 import React from "react";
-import SigninComp from "../../components/SignIn"
-import CreateAccountComp from "../../components/CreateAccount"
+import SigninComp from "../../components/SignIncomp"
+import CreateAccountComp from "../../components/CreateAccountcomp"
 import "./Signin.css";
 
 
@@ -13,7 +13,7 @@ function SignIn() {
   //   </div>
 
   // )
-  let isLoggedIn = true;
+  let isLoggedIn = false;
 
     if (isLoggedIn) {
       return <div><SigninComp isLoggedIn={true}></SigninComp></div>
