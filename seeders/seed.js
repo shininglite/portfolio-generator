@@ -14,6 +14,7 @@ let developerSeed = {
   fname: "Shawn",
   lname: "Hayes",
   lemail: "shawn@email.com",
+  active: true,
 };
 
 let repositorySeed = [

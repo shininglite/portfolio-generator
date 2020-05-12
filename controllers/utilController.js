@@ -1,9 +1,20 @@
-let mongoose = require("mongoose");
-let db = require("./models");
-let axios = require("axios");
+const db = require("../models");
+const mongoose = require("mongoose");
 
-// The function updateDevDB takes in an argument called "developerLoginName".
-// This is the users github login id.
+module.exports = {
+  // Synch the databases -Notes are in the function.
+  synchDatabase: function (req, res) {
+    const developerLoginName = req.params.id;
+    updateDevDB(developerLoginName);
+  },
+};
+//
+// This is the function that will take in a github user name and synch the local database.
+//
+// NOTE: This will only update new repositories (and initialize the developer).  It will not overwrite the database values (except when deleted from github).  This function will initialize the "developer" collection (if there is a valid github id) and add only NEW repositories to the local database.
+
+// If a user deletes a repository on github.  Currently, this will make the repository attribute "archive" to true and "active" for false.  TODO: It would be nice if we could have a form that shows all archived items.
+
 function updateDevDB(developerLoginName) {
   var gitHubData;
 
@@ -29,11 +40,11 @@ function updateDevDB(developerLoginName) {
 }
 
 function loadDB(devData, gitHubData) {
-  //  If there is no github data then return (TODO: Ask about sending errors)
+  //  If there is no github data then return (TODO: Ask about sending errors.  This will be needed for initialization)
   if (!gitHubData) {
     return;
   } else {
-    // If there is no devData (the user was not found in our database), set them up and inset the data.
+    // If there is no devData (the user was not found in our database), set them up and insert the data.
     //  Here is where we will add new data needed from the github repository.
     if (!devData) {
       let devData = {
@@ -58,13 +69,20 @@ function loadDB(devData, gitHubData) {
         if (repositiesData.repoID) {
           indexNum = githubRepoArray.indexOf(repositiesData.repoID);
           // If you do not find it, delete it.
+          // TODO: This needs to be tested!  To test this, add a repository to github.  Make sure the mongodb is up to date.  Delete the github repository.  Sign back into your account (to run this code).  And make sure the mongodb has marked in inactive and the active flag is false.
           if (indexNum < 0) {
-            // TODO: I keep deleting both references of the repository and the object it is pointing to.  IS there a better way?
-            // This needs fixing.
-            // Delete the Repository data
-            // db.Developer.findOne()
-            // db.Repository.findByIdAndDelete({ repositiesID });
-            // db.Developer.findOneAndUpdate(_id: )
+            db.Developer.findOneAndUpdate(
+              { _id: repositiesData.repoID },
+              {
+                $set: {
+                  archiveFlag: true,
+                  activeFlag: false,
+                },
+              }
+            ).catch((err) => {
+              console.error(err);
+              process.exit(1);
+            });
           }
         }
       });
@@ -110,4 +128,3 @@ function updateRepo(repo, devID) {
     }
   });
 }
-updateDevDB("srfrog1970");
