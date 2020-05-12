@@ -18,12 +18,12 @@ export default class DevTable extends Component {
 
   componentDidMount = () => {
     console.log('1.  in componentDidMount')
-    API.getDeveloper("srfrog1970")
+    API.getActiveDeveloper()
       .then(res => {
         this.setState({
           data: res.data.repositories
         })
-        console.log('7. success', res.data.repositories[1].repoName, res.data.repositories[1].activeFlag);
+        console.log('7. success', res.data.repositories[0].repoName, res.data.repositories[0].activeFlag);
         tableData = res.data.repositories
         console.log(tableData)
 
