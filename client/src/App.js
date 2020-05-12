@@ -15,7 +15,7 @@ import { NavigationBar } from "./components/HomeNav";
 API.getActiveDeveloper()
   .then((repositiesData) => {
     if (repositiesData) {
-      console.log("ERROR!!!");
+      console.log(repositiesData);
     } else {
       if (!repositiesData) {
         // TODO: Prompt for github ID
