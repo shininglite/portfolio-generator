@@ -12,3 +12,26 @@
 .devRow:hover {
   background-color: lightgray;
 }
+
+.repoForm {
+  padding-bottom: 1%;
+}
+
+.boxTitle {
+  text-decoration: underline;
+  margin-left: 5%;
+}
+
+.repoName {
+  font-weight: bold;
+}
+
+.inputGroup {
+  margin-left: 3%;
+}
+
+.inputLabel {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-right: 10px;
+}
