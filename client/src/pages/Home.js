@@ -16,7 +16,7 @@ function Home() {
   });
 
   useEffect(() => {
-    API.getActiveDeveloper().then((res) => {
+    API.getActiveDevData().then((res) => {
       setdevData(res.data);
     });
   }, []);

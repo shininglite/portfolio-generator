@@ -4,22 +4,29 @@ const mongoose = require("mongoose");
 module.exports = {
   // Get the active developer
   findActiveDeveloper: function (req, res) {
-    db.Developer.findOne(
-      {
-        active: true,
-      }
-      //TODO: I cant figure this out.  I want to pull in repositories that are active only.
-      // I have tried the following....
-
-      // { repositories: [{ $filter: { activeFlag: true } }] }
-      // repositories: [{ activeFlag: true }],
-      // repositories: { $elemMatch: { activeFlag: true } },
-    )
+    db.Developer.findOne({
+      active: true,
+    })
       .populate("repositories")
       .exec((err, dbDeveloper) => {
         if (err) {
           return res.json(err);
         } else {
+          return res.json(dbDeveloper);
+        }
+      });
+  },
+
+  getActiveDevData: function (req, res) {
+    db.Developer.findOne({
+      active: true,
+    })
+      .populate("repositories")
+      .exec((err, dbDeveloper) => {
+        if (err) {
+          return res.json(err);
+        } else {
+          console.log("here");
           if (dbDeveloper) {
             dbDeveloper.repositories = dbDeveloper.repositories.filter(
               (repository) => repository.activeFlag == "true"
@@ -29,6 +36,7 @@ module.exports = {
         }
       });
   },
+
   //  When calling for "devDate", we will alway need the github user id.
   updateDevData: function (req, res) {
     updateDeveloper(req.body);
