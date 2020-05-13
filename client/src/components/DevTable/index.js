@@ -63,10 +63,10 @@ export default class DevTable extends Component {
     const name = event.target.name;
     console.log(name, value)
     // Updating the input's state
-    // this.setState({
-    //   ...this.state,
-    //   deploymentLink: value
-    // });
+    this.setState({
+      ...this.state,
+      deploymentLink: value
+    });
   };
 
   handleFormSubmit = (event) => {
