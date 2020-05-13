@@ -165,23 +165,18 @@ If you created an application or package and would like other developers to cont
 
 
 ### Description
-
-Portfolio Generator automatically creates a curated portfolio from a developer's GitHub projects. The portfolio is presented in a standardized format for potential employers, or others, to view. 
+Portfolio Generator is a React app that automatically creates a curated portfolio from a developer's GitHub projects. The portfolio is presented in a standardized format for potential employers, or others, to view. 
 
 ### Why Portfolio Generator
-
 Developers have limited time to devote to creating an attractive way to display their projects. Developers typically have multiple projects under construction, and may not wish to include all of them in their portfolio. Portfolio Generator was created to automatically produce a professional project portfolio.
 
 ### How Portfolio Generator Works
-
 This application allows a developer to retrieve their GitHub projects and select any or all of those to automatically create an attractive portfolio.
 
 ### Technologies Used
-
 Profile Generator is a full-stack application, using client side and server side technologies. Client side technologies used include HTML (hypertext markup language), CSS (cascading style sheets) and the JavaScript programming. Server side technologies used are Express, Node, and MongoDB. We chose to use the MERN stack of open source software.
 
 #### MERN Stack
-
 The MERN stack is:
 
 <a href="https://www.mongodb.com/">Mongo DB</a>, a popular server-side database.
@@ -193,7 +188,6 @@ The MERN stack is:
 <a href="https://nodejs.org/en/">Node JS</a>, server-side JavaScript built on Chrome's V8 JavaScript engine.
 
 #### Libraries
-
 Portfolio Generator uses:
 
 <a href="https://react.semantic-ui.com/">React Semantic UI</a>, a modern front-end development framework, powered by
@@ -203,7 +197,6 @@ Portfolio Generator uses:
 <a href="https://https://react-bootstrap.github.io/">React Bootstrap</a> is a client-side CSS library rebuilt with true React components without unneeded dependencies like jQuery.
 
 ### Installation
-
 - install mongoDB
 - install node.js
 - install google chrome browser
@@ -255,10 +248,9 @@ Yeng Vang
 <a href="https://github.com/YengHV/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
 
 ### License
+This source code is available to everyone under the standard <a href="https://opensource.org/licenses/MIT">MIT license</a>
 
- This source code is available to everyone under the standard <a href="https://opensource.org/licenses/MIT">MIT license</a>
-
- ![badmath](https://img.shields.io/github/license/shininglite/portfolio-generator)
+![badmath](https://img.shields.io/github/license/shininglite/portfolio-generator)
 
 ### Total GitHub Downloads
 ![Total github downloads](https://img.shields.io/github/downloads/shininglite/portfolio-generator/total)
