@@ -1,14 +1,16 @@
 // import axios from "axios";
 import _ from "lodash";
 import React, { Component, Fragment } from "react";
-import { Table, Form } from "semantic-ui-react";
+import { Table, Form, Button } from "semantic-ui-react";
 import API from "../../utils/API";
 import './style.css'
 
-var tableData = [];
+var tableData = []
 
 export default class DevTable extends Component {
+
   state = {
+    id: null,
     column: null,
     data: null,
     direction: null,
@@ -23,6 +25,7 @@ export default class DevTable extends Component {
     API.getActiveDeveloper()
       .then(res => {
         this.setState({
+          ...this.state,
           data: res.data.repositories,
         })
         console.log('7. success', res.data.repositories[0].deploymentLink, res.data.repositories[0].activeFlag);
@@ -37,6 +40,7 @@ export default class DevTable extends Component {
 
     if (column !== clickedColumn) {
       this.setState({
+        ...this.state,
         column: clickedColumn,
         data: _.sortBy(data, [clickedColumn]),
         direction: "ascending",
@@ -51,31 +55,68 @@ export default class DevTable extends Component {
     });
   };
 
-  handleInputChange = (event) => {
+  handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
     console.log(name, value)
     // Updating the input's state
     this.setState({
-      [name]: value,
+      ...this.state,
+      deploymentLink: value
     });
   };
 
+  handleFormSubmit = (event) => {
+    // Preventing the default behavior of the form submit (which is to refresh the page)
+    event.preventDefault();
+    let value = this.state.deploymentLink
+    console.log(value)
+    this.setState({
+      ...this.state,
+      deploymentLink: value,
+    }, () => {
+      console.log(this.state.deploymentLink)
+      this.updateDB(this.state.id, { deploymentLink: this.state.deploymentLink })
+    });
+
+  };
+
+
   updateFlag = (id) => {
     console.log('clicked', id)
-   // if (tableData[id].activeFlag === 'false') {
-    //   tableData[id].activeFlag = 'true';
-    // } else {
-    //   tableData[id].activeFlag = 'false';
-    // }
-    // console.log(tableData[id].activeFlag)
+    if (tableData[id].activeFlag === 'false') {
+      tableData[id].activeFlag = 'true';
+    } else {
+      tableData[id].activeFlag = 'false';
+    }
+    console.log(tableData[id].activeFlag)
+    this.setState({
+      ...this.state,
+      activeFlag: tableData[id].activeFlag,
+    }, () => {
+      console.log(this.state.id, { activeFlag: this.state.activeFlag })
+      this.updateDB(this.state.id, { activeFlag: this.state.activeFlag })
+    });
   };
+
+  updateDB = (id, property) => {
+    console.log('in updateDB:  ', id, property)
+    API.updateRepositories(id, property)
+      .then(res => {
+        console.log('7. success');
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
   showDevRepo = (id) => {
     console.log('clicked', id)
     console.log(tableData[id]._id)
     this.setState({
+      ...this.state,
+      id: tableData[id]._id,
       rowClick: id,
       deploymentLink: tableData[id].deploymentLink,
       repoName: tableData[id].repoName
@@ -97,13 +138,13 @@ export default class DevTable extends Component {
                   onClick={this.handleSort("name")}
                 >
                   Repo Name
-                </Table.HeaderCell>
+            </Table.HeaderCell>
                 <Table.HeaderCell
                   sorted={column === "description" ? direction : null}
                   onClick={this.handleSort("description")}
                 >
                   Description
-                </Table.HeaderCell>
+            </Table.HeaderCell>
                 <Table.HeaderCell
                   width={2}
                   textAlign="center"
@@ -125,7 +166,6 @@ export default class DevTable extends Component {
             <Table.Body>
               {_.map(
                 data,
-
                 ({ repoDesc, activeFlag, repoName, archiveFlag }, index) => (
                   <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
                     <Table.Cell>{repoName}</Table.Cell>
@@ -136,10 +176,9 @@ export default class DevTable extends Component {
                 )
               )}
             </Table.Body>
-          </Table>
-        </div>
+          </Table >
+        </div >
         <div className="formBox">
-
           {rowClick >= 0 &&
             <Fragment>
               <div className="boxTitle">
@@ -147,33 +186,33 @@ export default class DevTable extends Component {
                   Information for Repository: <span className="repoName">{this.state.repoName}</span>
                 </p>
               </div>
-              <Form inverted className="repoForm">
+              <Form inverted className="repoForm" onSubmit={this.handleFormSubmit}>
                 <Form.Group grouped className="inputGroup">
-                  <Form.Field width={2}>
-                    <label className="inputLabel">Active Flag Value:  </label>
-                    <input width={2} name="activeFlag" label='ActiveFlag Value' value={this.state.activeFlag} control='input' />
+                  <Form.Field width={3}>
+                    <p className="flagLabel">Click 'Change' Button</p>
+                    <label className="inputLabel">Active Flag: <span className="repoName">{this.state.activeFlag}</span></label>
+                    {/* <input width={2} name="activeFlag" label='ActiveFlag Value' value={this.state.activeFlag} control='input' /> */}
                   </Form.Field>
                   <Form.Field label='' control='button' name="updateFlag" onClick={() => this.updateFlag(this.state.rowClick)}>
-                    Update
+                    Change
                   </Form.Field>
                 </Form.Group>
                 <Form.Group grouped className="inputGroup">
                   <Form.Field>
-                    <label className="inputLabel">Deployment URL:  </label>
-                    <input width={10} name="deploymentLink" label='Deployment URL: ' value={this.state.deploymentLink} control='input' />
+                    <p className="urlLabel">Enter Deployment URL </p>
+                    <label className="inputLabel">Deployment URL <span className="repoName">{this.state.deploymentLink}</span></label>
+                    <input className="urlBox" name="deploymentLink" label='Deployment URL: ' placeholder='link' value={this.state.value} onChange={(event) => this.handleInputChange(event)} />
                   </Form.Field>
-                  <Form.Field label='' control='button' name="deploymentLink" onClick={this.handleInputChange}>
-                    Update
+                  <Form.Field>
+                    <Button type='submit'>Update</Button>
+
                   </Form.Field>
                 </Form.Group>
               </Form>
             </Fragment>
           }
-
         </div>
-
       </Fragment >
-
     );
   }
 }
