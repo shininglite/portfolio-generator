@@ -44,7 +44,7 @@
 ### Description
 Portfolio Generator is a React app that automatically creates a curated portfolio from a developer's GitHub projects. The portfolio is presented in a standardized format for potential employers, or others, to view. 
 
-### Why We Developed Portfolio Generator
+### Why Use Portfolio Generator
 Developers have limited time to devote to creating an attractive way to display their projects. Developers typically have multiple projects under construction, and may not wish to include all of them in their portfolio. Portfolio Generator was created to automatically produce a professional project portfolio.
 
 ### How Portfolio Generator Works
