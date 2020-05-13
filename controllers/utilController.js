@@ -39,7 +39,7 @@ function updateDevDB(developerLoginName) {
     .then((devData) => {
       loadDB(devData, gitHubData);
     })
-    .catch((err) => res.json(err));
+    .catch((err) => res.json("Github user not found"));
 }
 
 function loadDB(devData, gitHubData) {
@@ -68,34 +68,40 @@ function loadDB(devData, gitHubData) {
       githubRepoArray.push(repo.id);
       updateRepo(repo, gitHubData.data.items[0].owner.id);
     });
+
+    archiveRepositories(devData, githubRepoArray);
     // loop through our database repository items.
-    devData.repositories.forEach((repositiesID) => {
-      db.Repositories.findById(repositiesID).exec((err, repositiesData) => {
-        // If the repoID is not null, find it in the github array of repos.
-        if (err) {
-          return res.json(err);
-        }
-        if (repositiesData.repoID) {
-          indexNum = githubRepoArray.indexOf(repositiesData.repoID);
-          // If you do not find it, delete it.
-          // TODO: This needs to be tested!  To test this, add a repository to github.  Make sure the mongodb is up to date.  Delete the github repository.  Sign back into your account (to run this code).  And make sure the mongodb has marked in inactive and the active flag is false.
-          if (indexNum < 0) {
-            db.Developer.findOneAndUpdate(
-              { _id: repositiesData.repoID },
-              {
-                $set: {
-                  archiveFlag: true,
-                  activeFlag: false,
-                },
-              }
-            ).catch((err) => {
-              return res.json(err);
-            });
-          }
-        }
-      });
-    });
   }
+}
+
+//  This will loop through our local database and update any repositories that were delete on github.  We will make these inactive and archived (activeFlag: false, archiveFlag: true)
+function archiveRepositories(devData, githubRepoArray) {
+  devData.repositories.forEach((repositiesID) => {
+    db.Repositories.findById(repositiesID).exec((err, repositiesData) => {
+      // If the repoID is not null, find it in the github array of repos.
+      if (err) {
+        return res.json(err);
+      }
+      if (repositiesData.repoID) {
+        indexNum = githubRepoArray.indexOf(repositiesData.repoID);
+        // If you do not find it, delete it.
+        // TODO: This needs to be tested!  To test this, add a repository to github.  Make sure the mongodb is up to date.  Delete the github repository.  Sign back into your account (to run this code).  And make sure the mongodb has marked in inactive and the active flag is false.
+        if (indexNum < 0) {
+          db.Repositories.findOneAndUpdate(
+            { _id: repositiesData.repoID },
+            {
+              $set: {
+                archiveFlag: true,
+                activeFlag: false,
+              },
+            }
+          ).catch((err) => {
+            return res.json(err);
+          });
+        }
+      }
+    });
+  });
 }
 //  This will synch the two databases.
 function updateRepo(repo, devID) {

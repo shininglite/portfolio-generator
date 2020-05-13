@@ -6,7 +6,6 @@ module.exports = {
   // Save the Repository information with whatever fields are sent in
 
   updateRepositories: function (req, res) {
-    console.log();
     db.Repositories.updateOne(
       { _id: req.params.id },
       {

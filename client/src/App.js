@@ -19,45 +19,61 @@ const App = () => {
     fname: "",
     lname: "",
     email: "",
+    isLoaded: "",
   });
 
-
   useEffect(() => {
-    initUser();
+    console.log("start");
+    initialization();
+    console.log("end");
   }, []);
 
-  async function initUser() {
+  async function initialization() {
+    //
+    console.log("start initDevData1");
+    const activeDevData = await initDevData();
+    console.log("devData", devData); // <-- This is null.
+    console.log("activeDevData", activeDevData); // <-- This is populated.
+    console.log("end initDevData1");
+    //
+    if (!activeDevData) {
+      //
+      console.log("start syncUser");
+      const userLoaded = await syncUser();
+      console.log("end syncUser");
+      //  KIERAN at this point, I need initDevData() to run before continuing!!!!!!
+      console.log("start initDevData2");
+      const activeDevData = await initDevData();
+      console.log("devData:", devData.data);
+      console.log("activeDevData:", activeDevData);
+      console.log("end initDevData2");
+      //
+    }
+    console.log("end");
+  }
+  async function syncUser() {
+    // return new Promise((res, rej) => {
     var message = "Enter Github ID to Initialize";
-
-    await API.getActiveDeveloper()
-      .then((res) => {
-        if (res.data) {
-          setdevData(res.data);
-        }
-        return res.data;
-      })
-      .then((devData) => {
-        if (devData) {
-          return devData;
-        }
-        var result = prompt(message);
-        API.getsync(result);
-        return devData;
-      })
-      .then((devData) => {
-        if (devData) {
-          return devData;
-        }
-        API.getActiveDeveloper().then((devData) => {
-          return devData.data;
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    var result = prompt(message);
+    const testvar = await API.getsync(result);
+    // return res(true);
+    // });
   }
 
-
+  async function initDevData() {
+    return new Promise((res, rej) => {
+      API.getActiveDeveloper().then((activeDevData) => {
+        console.log("got it");
+        if (activeDevData.data) {
+          setdevData(activeDevData.data);
+          res(activeDevData.data);
+          setdevData({ isLoaded: "true" });
+        } else {
+          res(activeDevData.data);
+        }
+      });
+    });
+  }
 
   return (
     <React.Fragment>
