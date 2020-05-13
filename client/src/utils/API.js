@@ -4,8 +4,8 @@ export default {
   //
 
   // Send in the github user name
-  getDevData: function (githubUserName) {
-    return axios.get("/api/devData/" + githubUserName);
+  getActiveDevData: function () {
+    return axios.get("/api/devData/activeDevData/");
   },
 
   // Saves the developer data.  You will need to send in the githubID in params and any fields you want to update in the developerData field.  It will update only those you send in.
