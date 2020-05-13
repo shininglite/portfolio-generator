@@ -5,3 +5,17 @@
   height: "55rem";
   background-color: #e48d8d;
 }
+
+.card-body {
+  background-color: lightgray;
+  color: darkslategrey;
+  border-color: darkgrey;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px;
+} 
+
+/* .card {
+  padding: 15px;
+  margin: 30px;
+} */
