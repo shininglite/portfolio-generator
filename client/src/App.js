@@ -21,6 +21,7 @@ const App = () => {
     email: "",
   });
 
+
   useEffect(() => {
     initUser();
   }, []);
@@ -55,6 +56,8 @@ const App = () => {
         console.error(err);
       });
   }
+
+
 
   return (
     <React.Fragment>
