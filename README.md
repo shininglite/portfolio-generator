@@ -171,7 +171,7 @@ Portfolio Generator is a React app that automatically creates a curated portfoli
 Developers have limited time to devote to creating an attractive way to display their projects. Developers typically have multiple projects under construction, and may not wish to include all of them in their portfolio. Portfolio Generator was created to automatically produce a professional project portfolio.
 
 ### How Portfolio Generator Works
-This application allows a developer to retrieve their GitHub projects and select any or all of those to automatically create an attractive portfolio.
+This application allows a developer to retrieve their GitHub projects and select any, or all, of those to automatically create an attractive portfolio.
 
 ### Technologies Used
 Profile Generator is a full-stack application, using client side and server side technologies. Client side technologies used include HTML (hypertext markup language), CSS (cascading style sheets) and the JavaScript programming. Server side technologies used are Express, Node, and MongoDB. We chose to use the MERN stack of open source software.
