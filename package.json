@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+
+  "engines": {
+    "node": "12.16.x"
+  },
+
   "dependencies": {
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
