@@ -4,7 +4,6 @@ import "./portCard.css";
 // import { Container } from "react-bootstrap";
 
 export default function portCard(props) {
-  console.log(props);
   let deploymentLink;
   if (props.repo.deploymentLink) {
     deploymentLink = (

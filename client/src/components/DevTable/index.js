@@ -3,13 +3,12 @@ import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import { Table, Form } from "semantic-ui-react";
 import API from "../../utils/API";
-import './style.css'
+import "./style.css";
 var id;
 
-var tableData = []
+var tableData = [];
 
 export default class DevTable extends Component {
-
   state = {
     column: null,
     data: null,
@@ -17,18 +16,20 @@ export default class DevTable extends Component {
   };
 
   componentDidMount = () => {
-    console.log('1.  in componentDidMount')
-    API.getDeveloper("srfrog1970")
-      .then(res => {
-        this.setState({
-          data: res.data.repositories
-        })
-        console.log('7. success', res.data.repositories[1].repoName, res.data.repositories[1].activeFlag);
-        tableData = res.data.repositories
-        console.log(tableData)
-
-      })
-  }
+    console.log("1.  in componentDidMount");
+    API.getActiveDeveloper().then((res) => {
+      this.setState({
+        data: res.data.repositories,
+      });
+      console.log(
+        "7. success",
+        res.data.repositories[0].repoName,
+        res.data.repositories[0].activeFlag
+      );
+      tableData = res.data.repositories;
+      console.log(tableData);
+    });
+  };
 
   handleSort = (clickedColumn) => () => {
     const { column, data, direction } = this.state;
@@ -49,31 +50,30 @@ export default class DevTable extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
 
     // Updating the input's state
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-
   changeFlag = (id) => {
-    console.log('clicked', id)
-    if (tableData[id].activeFlag === 'false') {
-      tableData[id].activeFlag = 'true';
+    console.log("clicked", id);
+    if (tableData[id].activeFlag === "false") {
+      tableData[id].activeFlag = "true";
     } else {
-      tableData[id].activeFlag = 'false';
+      tableData[id].activeFlag = "false";
     }
-    console.log(tableData[id].activeFlag)
+    console.log(tableData[id].activeFlag);
   };
 
   showDevRepo = (id) => {
-    console.log('clicked', id)
-    console.log(tableData[id]._id)
+    console.log("clicked", id);
+    console.log(tableData[id]._id);
     // if (tableData[id].activeFlag === 'false') {
     //   tableData[id].activeFlag = 'true';
     // } else {
@@ -97,13 +97,13 @@ export default class DevTable extends Component {
                   onClick={this.handleSort("name")}
                 >
                   Repo Name
-            </Table.HeaderCell>
+                </Table.HeaderCell>
                 <Table.HeaderCell
                   sorted={column === "description" ? direction : null}
                   onClick={this.handleSort("description")}
                 >
                   Description
-            </Table.HeaderCell>
+                </Table.HeaderCell>
                 <Table.HeaderCell
                   width={2}
                   textAlign="center"
@@ -111,14 +111,21 @@ export default class DevTable extends Component {
                   onClick={this.handleSort("activeFlag")}
                 >
                   Active
-            </Table.HeaderCell>
+                </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               {_.map(
                 data,
                 ({ repoDesc, activeFlag, repoName, repoId }, index) => (
-                  <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
+                  <Table.Row
+                    className="devRow"
+                    id={index}
+                    key={index}
+                    value={index}
+                    active
+                    onClick={(e) => this.showDevRepo(index)}
+                  >
                     <Table.Cell>{repoName}</Table.Cell>
                     <Table.Cell>{repoDesc}</Table.Cell>
                     <Table.Cell textAlign="center">{activeFlag}</Table.Cell>
@@ -127,26 +134,25 @@ export default class DevTable extends Component {
                 )
               )}
             </Table.Body>
-          </Table >
-        </div >
+          </Table>
+        </div>
         <div className="formBox">
           <Form inverted>
-            <Form.Group widths='equal'>
-              <Form.Field label='ActiveFlag Value: ' control='input' />
-              <Form.Field label='An HTML <select>' control='select'>
-                <option value='true'>True</option>
-                <option value='false'>False</option>
+            <Form.Group widths="equal">
+              <Form.Field label="ActiveFlag Value: " control="input" />
+              <Form.Field label="An HTML <select>" control="select">
+                <option value="true">True</option>
+                <option value="false">False</option>
               </Form.Field>
             </Form.Group>
-            <Form.Group widths='equal'>
-              <Form.Field label='ActiveFlag Value: ' control='input' />
+            <Form.Group widths="equal">
+              <Form.Field label="ActiveFlag Value: " control="input" />
             </Form.Group>
-            <Form.Field label='Submit' control='button'>
+            <Form.Field label="Submit" control="button">
               Submit
-          </Form.Field>
+            </Form.Field>
           </Form>
         </div>
-
       </Fragment>
     );
   }
