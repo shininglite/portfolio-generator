@@ -4,12 +4,27 @@ const mongoose = require("mongoose");
 module.exports = {
   // Get the active developer
   findActiveDeveloper: function (req, res) {
-    db.Developer.findOne({ active: true })
+    db.Developer.findOne(
+      {
+        active: true,
+      }
+      //TODO: I cant figure this out.  I want to pull in repositories that are active only.
+      // I have tried the following....
+
+      // { repositories: [{ $filter: { activeFlag: true } }] }
+      // repositories: [{ activeFlag: true }],
+      // repositories: { $elemMatch: { activeFlag: true } },
+    )
       .populate("repositories")
       .exec((err, dbDeveloper) => {
         if (err) {
           return res.json(err);
         } else {
+          if (dbDeveloper) {
+            dbDeveloper.repositories = dbDeveloper.repositories.filter(
+              (repository) => repository.activeFlag == "true"
+            );
+          }
           return res.json(dbDeveloper);
         }
       });
@@ -34,18 +49,18 @@ function updateDeveloper(devData) {
     db.Developer.insertMany(developerData);
   }
 }
-
+// TODO: Does not work.  Do not need this yet but I may need to loop through the devData.repositories and write out each individually?
 function updateRepository(devData) {
   if (devData) {
     let repoDevData = {
-      repoName: repo.name,
-      repoDesc: repo.description,
+      repoName: devData.name,
+      repoDesc: devData.description,
       activeFlag: false,
       archiveFlag: false,
       deploymentLink: "",
-      html_url: repo.html_url,
-      repoID: repo.id,
+      html_url: devData.html_url,
+      repoID: devData.id,
     };
-    db.Repository.insertMany(developerData);
+    db.Repository.insertMany(repoDevData);
   }
 }
