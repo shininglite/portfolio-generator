@@ -3,6 +3,7 @@ import _ from "lodash";
 import React, { Component, Fragment } from "react";
 import { Table, Form, Button } from "semantic-ui-react";
 import API from "../../utils/API";
+import RepoSearchBox from "../RepoSearchBox";
 import './style.css'
 
 var tableData = []
@@ -17,7 +18,8 @@ export default class DevTable extends Component {
     rowClick: -1,
     activeFlag: "false",
     deploymentLink: "",
-    repoName: ""
+    repoName: "",
+    filteredUsers: null
   };
 
   componentDidMount = () => {
@@ -27,11 +29,11 @@ export default class DevTable extends Component {
         this.setState({
           ...this.state,
           data: res.data.repositories,
+          filteredUsers: res.data.repositories
         })
         console.log('7. success', res.data.repositories[0].deploymentLink, res.data.repositories[0].activeFlag);
         tableData = res.data.repositories
-        console.log(tableData)
-
+        console.log(tableData.length)
       })
   }
 
@@ -61,10 +63,10 @@ export default class DevTable extends Component {
     const name = event.target.name;
     console.log(name, value)
     // Updating the input's state
-    this.setState({
-      ...this.state,
-      deploymentLink: value
-    });
+    // this.setState({
+    //   ...this.state,
+    //   deploymentLink: value
+    // });
   };
 
   handleFormSubmit = (event) => {
@@ -82,6 +84,24 @@ export default class DevTable extends Component {
 
   };
 
+  handleSearchChange = event => {
+
+    console.log(event.target.value);
+    const filter = event.target.value;
+    const filteredList = this.state.data.filter(item => {
+      // merge data together, then see if user input is anywhere inside
+      let values = Object.values(item)
+        .join("")
+        .toLowerCase();
+      return values.indexOf(filter.toLowerCase()) !== -1;
+    });
+    this.setState({
+      ...this.state,
+      filteredUsers: filteredList,
+    }, () => {
+      console.log('filteredUsers: ', this.state.filteredUsers)
+    });
+  }
 
   updateFlag = (id) => {
     console.log('clicked', id)
@@ -124,10 +144,14 @@ export default class DevTable extends Component {
   };
 
   render() {
-    const { column, data, direction, rowClick } = this.state;
+    const { column, data, direction, rowClick, filteredUsers } = this.state;
 
     return (
       <Fragment>
+        <span className="searchLine">
+          Search for Key Words ->
+          <RepoSearchBox handleSearchChange={this.handleSearchChange} />
+        </span>
         <div className="devTable">
           <Table sortable celled fixed singleLine>
             <Table.Header>
@@ -153,25 +177,17 @@ export default class DevTable extends Component {
                 >
                   Active
             </Table.HeaderCell>
-                <Table.HeaderCell
-                  width={2}
-                  textAlign="center"
-                  sorted={column === "archiveFlag" ? direction : null}
-                  onClick={this.handleSort("archiveFlag")}
-                >
-                  archiveFlag
-            </Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
               {_.map(
-                data,
-                ({ repoDesc, activeFlag, repoName, archiveFlag }, index) => (
+                filteredUsers,
+                ({ repoDesc, activeFlag, repoName }, index) => (
                   <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
                     <Table.Cell>{repoName}</Table.Cell>
                     <Table.Cell>{repoDesc}</Table.Cell>
                     <Table.Cell textAlign="center">{activeFlag}</Table.Cell>
-                    <Table.Cell textAlign="center">{String(archiveFlag)}</Table.Cell>
+                    {/* <Table.Cell textAlign="center">{String(archiveFlag)}</Table.Cell> */}
                   </Table.Row>
                 )
               )}

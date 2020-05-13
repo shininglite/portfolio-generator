@@ -1,0 +1,10 @@
+input {
+  border: 1px solid black;
+  margin-left: 4px;
+  margin-bottom: 12px;
+}
+
+.searchbox:hover {
+  background-color: #798094;
+  color: #ffffff;
+}
