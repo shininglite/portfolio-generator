@@ -1,11 +1,13 @@
 const db = require("../models");
 const mongoose = require("mongoose");
+const axios = require("axios");
 
 module.exports = {
   // Synch the databases -Notes are in the function.
-  synchDatabase: function (req, res) {
+  syncDatabase: function (req, res) {
     const developerLoginName = req.params.id;
     updateDevDB(developerLoginName);
+    return true;
   },
 };
 //
@@ -17,6 +19,7 @@ module.exports = {
 
 function updateDevDB(developerLoginName) {
   var gitHubData;
+  var devData;
 
   // Get the github user and repository data.
   axios
@@ -36,35 +39,41 @@ function updateDevDB(developerLoginName) {
     .then((devData) => {
       loadDB(devData, gitHubData);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => res.json(err));
 }
 
 function loadDB(devData, gitHubData) {
   //  If there is no github data then return (TODO: Ask about sending errors.  This will be needed for initialization)
   if (!gitHubData) {
-    return;
+    return res.json("Github user not found");
   } else {
     // If there is no devData (the user was not found in our database), set them up and insert the data.
     //  Here is where we will add new data needed from the github repository.
     if (!devData) {
-      let devData = {
+      //NOTE: I had the line " let devData = {..." before initializing devData with a "let" statement. HOWEVER, I only had access to this this variable inside the scope of he function...  I learned this the hard way!
+      var devData = {
         developerLoginName: gitHubData.data.items[0].owner.login,
         developerGithubID: gitHubData.data.items[0].owner.id,
+        lname: "",
+        fname: "",
+        email: "",
+        active: true,
+        repositories: [],
       };
       db.Developer.insertMany(devData);
     }
     var githubRepoArray = [];
-    // Loop through each github repository item and synch databases.
+    // Loop through each github repository item and load all new records.
     gitHubData.data.items.forEach((repo) => {
       githubRepoArray.push(repo.id);
       updateRepo(repo, gitHubData.data.items[0].owner.id);
     });
     // loop through our database repository items.
     devData.repositories.forEach((repositiesID) => {
-      db.Repository.findById(repositiesID).exec((err, repositiesData) => {
+      db.Repositories.findById(repositiesID).exec((err, repositiesData) => {
         // If the repoID is not null, find it in the github array of repos.
         if (err) {
-          return err;
+          return res.json(err);
         }
         if (repositiesData.repoID) {
           indexNum = githubRepoArray.indexOf(repositiesData.repoID);
@@ -80,8 +89,7 @@ function loadDB(devData, gitHubData) {
                 },
               }
             ).catch((err) => {
-              console.error(err);
-              process.exit(1);
+              return res.json(err);
             });
           }
         }
@@ -97,7 +105,7 @@ function updateRepo(repo, devID) {
   }
   // Here is where we set up our database's Repository information.
   // If you need to add more to the repository from github, start here.
-  let repoDevData = {
+  var repoDevData = {
     repoName: repo.name,
     repoDesc: repo.description,
     activeFlag: false,
@@ -107,10 +115,10 @@ function updateRepo(repo, devID) {
     repoID: repo.id,
   };
   // Check to see if there is a record in our database with the github repo id.
-  db.Repository.findOne({ repoID: repo.id }).exec((err, repoData) => {
+  db.Repositories.findOne({ repoID: repo.id }).exec((err, repoData) => {
     // If there is not a record in our database then add it to the repository collection.
     if (!repoData) {
-      db.Repository.insertMany(repoDevData).then((repoArray) => {
+      db.Repositories.insertMany(repoDevData).then((repoArray) => {
         // We also need to add the repository id to the developer .
         db.Developer.findOneAndUpdate(
           { developerGithubID: devID },
@@ -121,8 +129,7 @@ function updateRepo(repo, devID) {
           },
           { new: true }
         ).catch((err) => {
-          console.error(err);
-          process.exit(1);
+          res.json(err);
         });
       });
     }
