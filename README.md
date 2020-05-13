@@ -167,7 +167,7 @@ If you created an application or package and would like other developers to cont
 ### Description
 Portfolio Generator is a React app that automatically creates a curated portfolio from a developer's GitHub projects. The portfolio is presented in a standardized format for potential employers, or others, to view. 
 
-### Why Portfolio Generator
+### Why We Developed Portfolio Generator
 Developers have limited time to devote to creating an attractive way to display their projects. Developers typically have multiple projects under construction, and may not wish to include all of them in their portfolio. Portfolio Generator was created to automatically produce a professional project portfolio.
 
 ### How Portfolio Generator Works
@@ -255,7 +255,7 @@ This source code is available to everyone under the standard <a href="https://op
 ### Total GitHub Downloads
 ![Total github downloads](https://img.shields.io/github/downloads/shininglite/portfolio-generator/total)
 
-### Create React App
+### Create React Application
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
 
