@@ -4,15 +4,12 @@ const mongoose = require("mongoose");
 module.exports = {
   // Get the active developer
   findActiveDeveloper: function (req, res) {
-    console.log("here");
     db.Developer.findOne({ active: true })
       .populate("repositories")
       .exec((err, dbDeveloper) => {
         if (err) {
-          console.log("Nope");
           return res.json(err);
         } else {
-          console.log("got it");
           return res.json(dbDeveloper);
         }
       });

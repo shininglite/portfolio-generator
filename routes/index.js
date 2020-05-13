@@ -13,6 +13,7 @@ console.log("Route/index/");
 router.use("/api", apiRoutes);
 
 // Call utils routes.  The only currently here is the "synch" (to synch github with your database)
+console.log("Made it to the main routes folder");
 router.use("/util", utilRoutes);
 
 // If no API routes are hit, send the React app (landing page)

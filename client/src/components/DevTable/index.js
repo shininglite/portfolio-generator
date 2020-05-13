@@ -5,10 +5,9 @@ import { Table, Form } from "semantic-ui-react";
 import API from "../../utils/API";
 import './style.css'
 
-var tableData = []
+var tableData = [];
 
 export default class DevTable extends Component {
-
   state = {
     column: null,
     data: null,
@@ -52,22 +51,20 @@ export default class DevTable extends Component {
     });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     // Getting the value and name of the input which triggered the change
     let value = event.target.value;
     const name = event.target.name;
     console.log(name, value)
     // Updating the input's state
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-
   updateFlag = (id) => {
     console.log('clicked', id)
-
-    // if (tableData[id].activeFlag === 'false') {
+   // if (tableData[id].activeFlag === 'false') {
     //   tableData[id].activeFlag = 'true';
     // } else {
     //   tableData[id].activeFlag = 'false';
@@ -100,13 +97,13 @@ export default class DevTable extends Component {
                   onClick={this.handleSort("name")}
                 >
                   Repo Name
-            </Table.HeaderCell>
+                </Table.HeaderCell>
                 <Table.HeaderCell
                   sorted={column === "description" ? direction : null}
                   onClick={this.handleSort("description")}
                 >
                   Description
-            </Table.HeaderCell>
+                </Table.HeaderCell>
                 <Table.HeaderCell
                   width={2}
                   textAlign="center"
@@ -128,6 +125,7 @@ export default class DevTable extends Component {
             <Table.Body>
               {_.map(
                 data,
+
                 ({ repoDesc, activeFlag, repoName, archiveFlag }, index) => (
                   <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
                     <Table.Cell>{repoName}</Table.Cell>
@@ -138,9 +136,10 @@ export default class DevTable extends Component {
                 )
               )}
             </Table.Body>
-          </Table >
-        </div >
+          </Table>
+        </div>
         <div className="formBox">
+
           {rowClick >= 0 &&
             <Fragment>
               <div className="boxTitle">
@@ -174,6 +173,7 @@ export default class DevTable extends Component {
         </div>
 
       </Fragment >
+
     );
   }
 }

@@ -18,7 +18,6 @@ function Home() {
   useEffect(() => {
     API.getActiveDeveloper().then((res) => {
       setdevData(res.data);
-      console.log("res.data!!", res.data);
     });
   }, []);
 
