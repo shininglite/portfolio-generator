@@ -24,6 +24,7 @@
 
 .repoName {
   font-weight: bold;
+  margin-left: 1%;
 }
 
 .inputGroup {
@@ -34,4 +35,13 @@
   font-size: 1.1rem;
   font-weight: bold;
   margin-right: 10px;
+}
+
+.flagLabel {
+  line-height: 1.4rem;
+}
+
+.urlBox {
+  width: 25rem;
+  padding: 0;
 }
