@@ -1,12 +1,15 @@
-import React from 'react'
-import { Input } from 'semantic-ui-react'
+import React from "react";
+import { Input } from "semantic-ui-react";
 import "./style.css";
 
-const RepoSearchBox = ({ handleSearchChange }) => <Input
+const RepoSearchBox = ({ handleSearchChange }) => (
+  <Input
     as="span"
     focus
-    placeholder='Search...'
+    placeholder="Search..."
     className="searchBox"
-    onChange={e => handleSearchChange(e)} />
+    onChange={(e) => handleSearchChange(e)}
+  />
+);
 
-export default RepoSearchBox
+export default RepoSearchBox;

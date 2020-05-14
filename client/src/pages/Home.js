@@ -1,31 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Jumbotron } from "../components/JumboTron";
 import PortCards from "../components/PortCards/portCards";
 import SearchBar from "../components/SearchBar/searchBar";
-import { Container } from "react-bootstrap";
+import { Container, Button, Row } from "react-bootstrap";
+import DevDataContext from "../utils/DevDataContext";
 import API from "../utils/API";
 
 function Home() {
-  const [devData, setdevData] = useState({
-    repositories: [],
-    developerLoginName: "",
-    developerGithubID: "",
-    fname: "",
-    lname: "",
-    email: "",
-  });
+  const { devData, setDevData } = useContext(DevDataContext);
+  const [search, setsearch] = useState({});
 
+  const resetSearch = (e) => {
+    console.log("reset");
+  };
+  // NOTE:  This is needed because we are not using hooks in the development page.
+  // =>
   useEffect(() => {
-    API.getActiveDevData().then((res) => {
-      setdevData(res.data);
-    });
+    console.log("start");
+    initDevData();
+    console.log("end");
   }, []);
+
+  async function initDevData() {
+    return new Promise((res, rej) => {
+      API.getActiveDevData().then((activeDevData) => {
+        console.log("got it");
+        if (activeDevData.data) {
+          setDevData(activeDevData.data);
+          res(activeDevData.data);
+        } else {
+          res(activeDevData.data);
+        }
+      });
+    });
+  }
+  // <= This is needed because we are not using hooks in the development page
+  //
+  // handleInputChange = (event) => {
+  //   console.log("hi");
+  // };
+  const handleInputChange = (event) => {
+    console.log("hi");
+    // setDevData();
+  };
 
   return (
     <div>
       <Jumbotron></Jumbotron>
       <Container>
-        <SearchBar></SearchBar>
+        <Row>
+          <SearchBar props={handleInputChange}></SearchBar>
+        </Row>
       </Container>
       <Container>
         <PortCards repositories={devData.repositories}></PortCards>

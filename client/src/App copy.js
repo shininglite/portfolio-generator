@@ -4,18 +4,15 @@ import Developer from "./pages/Developer";
 import NoMatch from "./pages/NoMatch";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import TestPage from "./pages/TestPage";
 import Contact from "./pages/Contact";
 import Signin from "./pages/Signin/Signin";
 import API from "./utils/API";
-import DevDataContext from "./utils/DevDataContext";
 
 // Here is another way to set up imports.  I only did this on the about page to show how. Check out how the About pages exports.  You will need the curly brackets when importing.
 import { Layout } from "./components/Layout";
 import { NavigationBar } from "./components/HomeNav";
-//
 const App = () => {
-  const [devData, setDevData] = useState({
+  const [devData, setdevData] = useState({
     repositories: [],
     developerLoginName: "",
     developerGithubID: "",
@@ -65,11 +62,12 @@ const App = () => {
 
   async function initDevData() {
     return new Promise((res, rej) => {
-      API.getActiveDevData().then((activeDevData) => {
+      API.getActiveDeveloper().then((activeDevData) => {
         console.log("got it");
         if (activeDevData.data) {
-          setDevData(activeDevData.data);
+          setdevData(activeDevData.data);
           res(activeDevData.data);
+          setdevData({ isLoaded: "true" });
         } else {
           res(activeDevData.data);
         }
@@ -77,35 +75,23 @@ const App = () => {
     });
   }
 
-  if (devData) {
-    // if (devData.password) {
-    var homeComp = Home;
-    // } else {
-    //   var homeComp = Signin;
-    // }
-    returnValue = (
-      <React.Fragment>
-        <Layout>
-          <Router>
-            <NavigationBar />
-            <Switch>
-              <DevDataContext.Provider value={{ devData, setDevData }}>
-                <Route exact path="/" component={homeComp} />
-                <Route exact path="/contact" component={Contact} />
-                <Route exact path="/about" component={About} />
-                <Route exact path="/Developer" component={Developer} />
-                <Route exact path="/Signin" component={Signin} />
-              </DevDataContext.Provider>
-              <Route component={NoMatch} />
-            </Switch>
-          </Router>
-        </Layout>
-      </React.Fragment>
-    );
-  } else {
-    var returnValue = "";
-  }
-  return returnValue;
+  return (
+    <React.Fragment>
+      <Layout>
+        <Router>
+          <NavigationBar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/contact" component={Contact} />
+            <Route exact path="/about" component={About} />
+            <Route exact path="/Developer" component={Developer} />
+            <Route exact path="/Signin" component={Signin} />
+            <Route component={NoMatch} />
+          </Switch>
+        </Router>
+      </Layout>
+    </React.Fragment>
+  );
 };
 
 export default App;
