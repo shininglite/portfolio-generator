@@ -7,15 +7,24 @@
 }
 
 .card-body {
-  background-color: lightgray;
-  color: darkslategrey;
+  background-color: rgb(96, 96, 96);
+  color:white;
   border-color: darkgrey;
   border-style: solid;
   border-radius: 10px;
+  border-color: slategray;
   padding: 10px;
 } 
+.text-muted {
+  color:black;
+}
 
-/* .card {
-  padding: 15px;
-  margin: 30px;
-} */
+.card-link {
+  color: yellow;
+
+}
+
+card-link.hover {
+  color: green;
+  background-color: white; 
+}

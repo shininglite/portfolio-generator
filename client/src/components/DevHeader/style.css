@@ -1,1 +1,22 @@
 
+.navbar-toggler{
+  width: 47px;
+  height: 34px;
+  background-color: gray;
+  border:none;
+}
+
+.navbar-toggler:hover{
+  background-color: lightgray;
+  color: black;
+  border: none;
+}
+
+/* .navbar-toggler .line{
+  width: 100%;
+  float: left;
+  height: 2px;
+  color: lightgray;
+  background-color: lightgray;
+  margin-bottom: 5px;
+  } */

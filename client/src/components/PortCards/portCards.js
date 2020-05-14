@@ -7,7 +7,7 @@ function PortCards(props) {
     <div>
       <Row>
         {props.repositories.map((repo, index) => (
-          <Col size="md-4">
+          <Col size="md-6">
             <PortCard key={index} repo={repo} />
           </Col>
         ))}
