@@ -14,6 +14,7 @@ export default class DevTable extends Component {
     id: null,
     column: null,
     data: null,
+    sort: null,
     direction: null,
     rowClick: -1,
     activeFlag: "false",
@@ -41,13 +42,13 @@ export default class DevTable extends Component {
   }
 
   handleSort = (clickedColumn) => () => {
-    const { column, data, direction } = this.state;
-
+    const { column, filteredUsers, direction } = this.state;
+    console.log('in handleSort', clickedColumn)
     if (column !== clickedColumn) {
       this.setState({
         ...this.state,
         column: clickedColumn,
-        data: _.sortBy(data, [clickedColumn]),
+        filteredUsers: _.sortBy(filteredUsers, [clickedColumn]),
         direction: "ascending",
       });
 
@@ -55,7 +56,7 @@ export default class DevTable extends Component {
     }
 
     this.setState({
-      data: data.reverse(),
+      filteredUsers: filteredUsers.reverse(),
       direction: direction === "ascending" ? "descending" : "ascending",
     });
   };
@@ -137,7 +138,7 @@ export default class DevTable extends Component {
   showDevRepo = (repo) => {
     console.log('clicked', repo)
     let id = tableData.findIndex(e => e.repoID === repo)
-    console.log('id: ', id)
+    console.log('id: ', id, 'deployLink: ', tableData[id].deploymentLink)
     console.log(tableData[id]._id)
     this.setState({
       ...this.state,
@@ -150,7 +151,7 @@ export default class DevTable extends Component {
   };
 
   render() {
-    const { column, data, direction, rowClick, filteredUsers, repoID } = this.state;
+    const { column, sort, direction, rowClick, filteredUsers, repoID } = this.state;
 
     return (
       <Fragment>
@@ -199,8 +200,9 @@ export default class DevTable extends Component {
             </Table.Body>
           </Table >
         </div >
-        <div className="formBox">
-          {rowClick >= 0 &&
+        {rowClick >= 0 &&
+          <div className="formBox">
+
             <Fragment>
               <div className="boxTitle">
                 <p>
@@ -209,30 +211,30 @@ export default class DevTable extends Component {
               </div>
               <Form inverted className="repoForm" onSubmit={this.handleFormSubmit}>
                 <Form.Group grouped className="inputGroup">
-                  <Form.Field width={3}>
+                  <Form.Field width="5">
                     <p className="flagLabel">Click 'Change' Button</p>
-                    <label className="inputLabel">Active Flag: <span className="repoName">{this.state.activeFlag}</span></label>
+                    <label className="inputLabel">Active Flag: {this.state.activeFlag}</label>
                     {/* <input width={2} name="activeFlag" label='ActiveFlag Value' value={this.state.activeFlag} control='input' /> */}
                   </Form.Field>
-                  <Form.Field label='' control='button' name="updateFlag" onClick={() => this.updateFlag(this.state.rowClick)}>
+                  <Form.Field label='' control='button' color="blue" name="updateFlag" onClick={() => this.updateFlag(this.state.rowClick)}>
                     Change
                   </Form.Field>
                 </Form.Group>
                 <Form.Group grouped className="inputGroup">
                   <Form.Field>
-                    <p className="urlLabel">Enter Deployment URL </p>
-                    <label className="inputLabel">Deployment URL <span className="repoName">{this.state.deploymentLink}</span></label>
-                    <input className="urlBox" name="deploymentLink" label='Deployment URL: ' placeholder='link' value={this.state.value} onChange={(event) => this.handleInputChange(event)} />
+                    <p className="flagLabel">Enter Deployment URL </p>
+                    <label className="inputLabel">Deployment URL: <span className="repoName"></span></label>
+                    <input className="urlBox" name="deploymentLink" label='Deployment URL: ' placeholder={this.state.deploymentLink} value={this.state.value} onChange={(event) => this.handleInputChange(event)} />
                   </Form.Field>
                   <Form.Field>
-                    <Button type='submit'>Update</Button>
+                    <Button primary type='submit'>Update</Button>
 
                   </Form.Field>
                 </Form.Group>
               </Form>
             </Fragment>
-          }
-        </div>
+          </div>
+        }
       </Fragment >
     );
   }
