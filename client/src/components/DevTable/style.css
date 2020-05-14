@@ -44,9 +44,15 @@
 .urlBox {
   width: 25rem;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .searchLine {
   margin-left: 5%;
   margin-bottom: 10%;
+}
+
+button {
+  background-color: rgb(57, 67, 121);
+  color: white;
 }
