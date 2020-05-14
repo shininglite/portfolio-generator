@@ -20,12 +20,14 @@ module.exports = {
 function updateDevDB(developerLoginName) {
   var gitHubData;
   var devData;
-
+  console.log('top of updateDevDB')
   // Get the github user and repository data.
   axios
     .get(
-      "https://api.github.com/search/repositories?q=user:" + developerLoginName
+      "https://api.github.com/users/" + developerLoginName + "/repos?type=all?per_page=2"
     )
+    // "https://api.github.com/users/frunox/repos?type=all"
+    // "https://api.github.com/search/repositories?q=user:" + developerLoginName
     // Set gitHubData to the returned data.  TODO: I thought this line of code would work?
     // .then((gitHubData) => {})
     .then((data) => {
@@ -37,12 +39,13 @@ function updateDevDB(developerLoginName) {
     })
     // Take the devData and gitHubData and call loadDB to synch Databases.
     .then((devData) => {
-      loadDB(devData, gitHubData);
+      console.log(gitHubData.data[0])
+      loadDB(developerLoginName, devData, gitHubData.data);
     })
-    .catch((err) => res.json("Github user not found"));
+    .catch((err) => console.log(err));
 }
 
-function loadDB(devData, gitHubData) {
+function loadDB(developerLoginName, devData, gitHubData) {
   //  If there is no github data then return (TODO: Ask about sending errors.  This will be needed for initialization)
   if (!gitHubData) {
     return res.json("Github user not found");
@@ -52,21 +55,25 @@ function loadDB(devData, gitHubData) {
     if (!devData) {
       //NOTE: I had the line " let devData = {..." before initializing devData with a "let" statement. HOWEVER, I only had access to this this variable inside the scope of he function...  I learned this the hard way!
       var devData = {
-        developerLoginName: gitHubData.data.items[0].owner.login,
-        developerGithubID: gitHubData.data.items[0].owner.id,
+        developerLoginName: developerLoginName,
+        developerGithubID: gitHubData[1].owner.id,
         lname: "",
         fname: "",
         email: "",
         active: true,
         repositories: [],
       };
+      console.log('line 66: ', devData.developerGithubID)
       db.Developer.insertMany(devData);
     }
     var githubRepoArray = [];
+    console.log('line 70: ', gitHubData.length)
     // Loop through each github repository item and load all new records.
-    gitHubData.data.items.forEach((repo) => {
+    gitHubData.forEach((repo) => {
+      // console.log('at push: ', repo.id)
+      console.log('devID:  ', devData.developerGithubID)
       githubRepoArray.push(repo.id);
-      updateRepo(repo, gitHubData.data.items[0].owner.id);
+      updateRepo(repo, devData.developerGithubID);
     });
 
     archiveRepositories(devData, githubRepoArray);
