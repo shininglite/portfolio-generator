@@ -19,7 +19,9 @@ export default class DevTable extends Component {
     activeFlag: "false",
     deploymentLink: "",
     repoName: "",
-    filteredUsers: null
+    filteredUsers: null,
+    searched: -1,
+    searchID: null
   };
 
   componentDidMount = () => {
@@ -29,11 +31,12 @@ export default class DevTable extends Component {
         this.setState({
           ...this.state,
           data: res.data.repositories,
-          filteredUsers: res.data.repositories
+          filteredUsers: res.data.repositories,
+          repoID: res.data.repositories.repoID
         })
-        console.log('7. success', res.data.repositories[0].deploymentLink, res.data.repositories[0].activeFlag);
+        console.log('7. success', res.data.repositories[0].repoID, res.data.repositories[0].repoName);
         tableData = res.data.repositories
-        console.log(tableData.length)
+        console.log(tableData[0].repoID)
       })
   }
 
@@ -65,7 +68,7 @@ export default class DevTable extends Component {
     // Updating the input's state
     this.setState({
       ...this.state,
-      deploymentLink: value
+      deploymentLink: value,
     });
   };
 
@@ -131,20 +134,23 @@ export default class DevTable extends Component {
       })
   }
 
-  showDevRepo = (id) => {
-    console.log('clicked', id)
+  showDevRepo = (repo) => {
+    console.log('clicked', repo)
+    let id = tableData.findIndex(e => e.repoID === repo)
+    console.log('id: ', id)
     console.log(tableData[id]._id)
     this.setState({
       ...this.state,
       id: tableData[id]._id,
       rowClick: id,
       deploymentLink: tableData[id].deploymentLink,
-      repoName: tableData[id].repoName
+      repoName: tableData[id].repoName,
+      activeFlag: tableData[id].activeFlag
     });;
   };
 
   render() {
-    const { column, data, direction, rowClick, filteredUsers } = this.state;
+    const { column, data, direction, rowClick, filteredUsers, repoID } = this.state;
 
     return (
       <Fragment>
@@ -182,12 +188,11 @@ export default class DevTable extends Component {
             <Table.Body>
               {_.map(
                 filteredUsers,
-                ({ repoDesc, activeFlag, repoName }, index) => (
-                  <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(index)}>
+                ({ repoDesc, activeFlag, repoName, repoID }, index) => (
+                  <Table.Row className="devRow" id={index} key={index} value={index} active onClick={e => this.showDevRepo(repoID)}>
                     <Table.Cell>{repoName}</Table.Cell>
                     <Table.Cell>{repoDesc}</Table.Cell>
                     <Table.Cell textAlign="center">{activeFlag}</Table.Cell>
-                    {/* <Table.Cell textAlign="center">{String(archiveFlag)}</Table.Cell> */}
                   </Table.Row>
                 )
               )}
