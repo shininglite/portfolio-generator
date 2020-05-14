@@ -4,5 +4,9 @@
 
 /* FIXME: Sizing text box not working */
 .textBox{
-    height: 70px;
+    line-height: 70px;
 }
+.container{
+    width: 80%;
+}
+
