@@ -20,7 +20,7 @@ module.exports = {
 function updateDevDB(developerLoginName) {
   var gitHubData;
   var devData;
-  console.log('top of updateDevDB')
+  // console.log('top of updateDevDB')
   // Get the github user and repository data.
   axios
     .get(
@@ -39,7 +39,7 @@ function updateDevDB(developerLoginName) {
     })
     // Take the devData and gitHubData and call loadDB to synch Databases.
     .then((devData) => {
-      console.log(gitHubData.data[0])
+      // console.log(gitHubData.data[0])
       loadDB(developerLoginName, devData, gitHubData.data);
     })
     .catch((err) => console.log(err));
@@ -54,24 +54,26 @@ function loadDB(developerLoginName, devData, gitHubData) {
     //  Here is where we will add new data needed from the github repository.
     if (!devData) {
       //NOTE: I had the line " let devData = {..." before initializing devData with a "let" statement. HOWEVER, I only had access to this this variable inside the scope of he function...  I learned this the hard way!
+      let userId = gitHubData.findIndex(e => e.owner.login === developerLoginName)
+      // console.log('id: ', userId)
       var devData = {
         developerLoginName: developerLoginName,
-        developerGithubID: gitHubData[1].owner.id,
+        developerGithubID: gitHubData[userId].owner.id,
         lname: "",
         fname: "",
         email: "",
         active: true,
         repositories: [],
       };
-      console.log('line 66: ', devData.developerGithubID)
+      // console.log('line 68: ', devData.developerGithubID)
       db.Developer.insertMany(devData);
     }
     var githubRepoArray = [];
-    console.log('line 70: ', gitHubData.length)
+    // console.log('line 72: ', gitHubData.length)
     // Loop through each github repository item and load all new records.
     gitHubData.forEach((repo) => {
       // console.log('at push: ', repo.id)
-      console.log('devID:  ', devData.developerGithubID)
+      // console.log('devID:  ', devData.developerGithubID)
       githubRepoArray.push(repo.id);
       updateRepo(repo, devData.developerGithubID);
     });
