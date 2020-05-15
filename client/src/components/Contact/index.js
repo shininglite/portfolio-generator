@@ -1,6 +1,5 @@
 import React from "react";
-import { InputGroup } from 'react-bootstrap';
-import { FormControl } from "react-bootstrap"
+import { InputGroup, FormControl, Container } from 'react-bootstrap';
 import "./contactStyle.css"
 
 
@@ -8,6 +7,7 @@ function ContactComp() {
 
   return (
     <div className = "contactContainer">
+    <Container ClassName = "container">
     <InputGroup className="mb-3">
       <InputGroup.Prepend>
         <InputGroup.Text id="basic-addon1">Name</InputGroup.Text>
@@ -32,9 +32,14 @@ function ContactComp() {
   
     <label htmlFor="basic-url">Message</label>
 
-    <InputGroup className="textBox">
-      <FormControl as="textarea" aria-label="With textarea" />
+    <InputGroup>
+      <FormControl 
+      as="textarea" 
+      aria-label="With textarea"
+      className="textBox" 
+      />
     </InputGroup>
+    </Container>
   </div>
   
     )
