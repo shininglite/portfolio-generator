@@ -1,0 +1,25 @@
+/* .aboutContainer {
+  background-color: black;
+  color: white;
+} */
+
+.aboutContainer {
+  background-color: gray;
+  color: white;
+}
+
+a {
+  color: yellow;
+}
+
+a:hover {
+  color: black;
+}
+
+h1 {
+  color: darkslategray;
+}
+
+h3 {
+  color: darkslategray;
+}
