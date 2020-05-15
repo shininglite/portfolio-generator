@@ -6,7 +6,9 @@ import "./style.css";
 
 function AboutMeComp() {
   return (
+    
     <div className="aboutContainer">
+      <div className = "container">
       <h1>Portfolio Generator</h1>
       <h3>Description</h3>
       <p>
@@ -74,6 +76,7 @@ function AboutMeComp() {
           Yeng's GitHub Projects
         </a>
       </p>
+    </div>
     </div>
   );
 }
