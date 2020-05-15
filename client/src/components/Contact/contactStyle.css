@@ -2,7 +2,11 @@
     padding-top: 30px;
 }
 
+.container{
+    width: 80%;
+}
+
 /* FIXME: Sizing text box not working */
 .textBox{
-    height: 70px;
+    line-height: 100px;
 }
