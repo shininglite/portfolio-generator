@@ -4,44 +4,29 @@ import PortCards from "../components/PortCards/portCards";
 import SearchBar from "../components/SearchBar/searchBar";
 import { Container, Button, Row } from "react-bootstrap";
 import DevDataContext from "../utils/DevDataContext";
+import SetupContext from "../utils/SetupContext";
 import API from "../utils/API";
 
 function Home() {
-  const { devData, setDevData } = useContext(DevDataContext);
-  const [search, setsearch] = useState({});
+  const { devData } = useContext(DevDataContext);
+  const { setup, setSetup } = useContext(SetupContext);
+  const [displayRepos, setdisplayRepos] = useState({
+    displayRepos: devData.repositories,
+  });
 
-  const resetSearch = (e) => {
-    console.log("reset");
-  };
-  // NOTE:  This is needed because we are not using hooks in the development page.
-  // =>
-  useEffect(() => {
-    console.log("start");
-    initDevData();
-    console.log("end");
-  }, []);
-
-  async function initDevData() {
-    return new Promise((res, rej) => {
-      API.getActiveDevData().then((activeDevData) => {
-        console.log("got it");
-        if (activeDevData.data) {
-          setDevData(activeDevData.data);
-          res(activeDevData.data);
-        } else {
-          res(activeDevData.data);
-        }
-      });
-    });
-  }
-  // <= This is needed because we are not using hooks in the development page
-  //
-  // handleInputChange = (event) => {
-  //   console.log("hi");
-  // };
   const handleInputChange = (event) => {
-    console.log("hi");
-    // setDevData();
+    const filter = event.target.value;
+    var filteredRepos = devData.repositories.filter((item) => {
+      let values = Object.values(item).join("").toLowerCase();
+      return values.indexOf(filter.toLowerCase()) !== -1;
+    });
+    console.log("displayRepos:", filteredRepos);
+    setdisplayRepos({
+      displayRepos: filteredRepos,
+    });
+  };
+  const resetSearch = (e) => {
+    setdisplayRepos({ displayRepos: devData.repositories });
   };
 
   return (
@@ -49,11 +34,14 @@ function Home() {
       <Jumbotron></Jumbotron>
       <Container>
         <Row>
-          <SearchBar props={handleInputChange}></SearchBar>
+          <SearchBar
+            handleInputChange={handleInputChange}
+            resetSearch={resetSearch}
+          ></SearchBar>
         </Row>
       </Container>
       <Container>
-        <PortCards repositories={devData.repositories}></PortCards>
+        <PortCards repositories={displayRepos.displayRepos}></PortCards>
       </Container>
     </div>
   );
