@@ -4,15 +4,18 @@
   height: 34px;
   background-color: gray;
   border:none;
+  border-color: gray;
 }
 
 .navbar-toggler:hover{
   background-color: lightgray;
   color: black;
   border: none;
+  border-color: darkslategrey;
 }
 
-/* .navbar-toggler .line{
+/* // navbar toggler .line not working
+.navbar-toggler .line{
   width: 100%;
   float: left;
   height: 2px;

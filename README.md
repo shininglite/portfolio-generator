@@ -73,7 +73,7 @@ Portfolio Generator uses:
 
 <a href="https://https://react-bootstrap.github.io/">React Bootstrap</a> is a client-side CSS library rebuilt with true React components without unneeded dependencies like jQuery.
 
-### Installation
+### Developer Installation Steps
 - install mongoDB
 - install node.js
 - install google chrome browser
@@ -113,16 +113,16 @@ We are proud of our work and hope you like it as well. Working together, we crea
 
 ### Contributors
 John Cannon     
-<a href="https://github.com/frunox/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
+<a href="https://github.com/frunox/" alt="John Cannon's GitHub Projects">John's GitHub Projects</a>
 
 Shawn Hayes     
-<a href="https://github.com/srfrog1970/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
+<a href="https://github.com/srfrog1970/" alt="Shawn Hayes' GitHub Projects">Shawn's GitHub Projects</a>
 
 Tom van Deusen  
-<a href="https://github.com/shininglite/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
+<a href="https://github.com/shininglite/" alt="Tom van Deusen's GitHub Projects">Tom's GitHub Projects</a>
 
 Yeng Vang       
-<a href="https://github.com/YengHV/" alt="John Cannon's GitHub Projects">My GitHub Projects</a>
+<a href="https://github.com/YengHV/" alt="Yeng Vang's GitHub Projects">Yeng's GitHub Projects</a>
 
 ### License
 This source code is available under the standard <a href="https://opensource.org/licenses/MIT">MIT license</a>
