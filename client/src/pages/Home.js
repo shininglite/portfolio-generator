@@ -5,7 +5,7 @@ import SearchBar from "../components/SearchBar/searchBar";
 import { Container, Button, Row } from "react-bootstrap";
 import DevDataContext from "../utils/DevDataContext";
 import SetupContext from "../utils/SetupContext";
-import API from "../utils/API";
+import { NavigationBar } from "../components/HomeNav";
 
 function Home() {
   const { devData } = useContext(DevDataContext);
@@ -31,6 +31,7 @@ function Home() {
 
   return (
     <div>
+      <NavigationBar />
       <Jumbotron></Jumbotron>
       <Container>
         <Row>

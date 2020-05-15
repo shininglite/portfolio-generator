@@ -1,11 +1,13 @@
 import React from "react";
-import ContactComp from "../components/Contact"
+import ContactComp from "../components/Contact";
+import { NavigationBar } from "../components/HomeNav";
 
 function Contact() {
   return (
     <div>
-   <ContactComp></ContactComp>
-   </div>
+      <NavigationBar />
+      <ContactComp></ContactComp>
+    </div>
   );
 }
 

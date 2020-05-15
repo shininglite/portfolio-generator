@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-
+import API from "../../utils/API";
+import { Redirect } from "react-router-dom";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -31,6 +32,7 @@ class CreateAccountComp extends Component {
       email: null,
       password: null,
       githubID: null,
+      loaded: null,
       formErrors: {
         firstName: "",
         lastName: "",
@@ -43,19 +45,17 @@ class CreateAccountComp extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
-    if (formValid(this.state)) {
-      console.log(`
-        --SUBMITTING--
-        First Name: ${this.state.firstName}
-        Last Name: ${this.state.lastName}
-        Email: ${this.state.email}
-        Password: ${this.state.password}
-        Github ID: ${this.state.githubID}
-      `);
-    } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-    }
+    console.log("HMMMM");
+    this.props.handleInputChange();
+    API.getsync(this.state.githubID);
+    this.state.loaded = true;
+    // console.log(`
+    //   --SUBMITTING--
+    //   First Name: ${this.state.firstName}
+    //   Last Name: ${this.state.lastName}
+    //   Email: ${this.state.email}
+    //   Password: ${this.state.password}
+    //   Github ID: ${this.state.githubID}
   };
 
   handleChange = (e) => {
@@ -89,12 +89,15 @@ class CreateAccountComp extends Component {
         break;
     }
 
-    this.setState({ formErrors, [name]: value }, () => console.log(this.state));
+    this.setState({ formErrors, [name]: value }, () => null);
   };
 
   render() {
     const { formErrors } = this.state;
-
+    // console.log("Try", this.state.loaded);
+    // if (this.state.loaded) {
+    //   return <Redirect to={"/Home"} />;
+    // }
     return (
       <div className="wrapper">
         <div className="form-wrapper">

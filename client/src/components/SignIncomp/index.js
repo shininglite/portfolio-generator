@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router-dom";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -28,6 +28,7 @@ class SigninComp extends Component {
     this.state = {
       password: null,
       githubID: null,
+      loaded: null,
       formErrors: {
         password: "",
         githubID: "",
@@ -36,17 +37,11 @@ class SigninComp extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (formValid(this.state)) {
-      console.log(`
-        --SUBMITTING--
-        Password: ${this.state.password}
-        Github ID: ${this.state.githubID}
-      `);
-    } else {
-      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-    }
+    // if (formValid(this.state)) {
+    this.state.loaded = true;
+    // } else {
+    //   console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+    // }
   };
 
   handleChange = (e) => {
@@ -72,14 +67,15 @@ class SigninComp extends Component {
 
   render() {
     const { formErrors } = this.state;
-
+    // console.log("LOADED", this.state.loaded);
+    // if (this.state.loaded) {
+    //   return <Redirect to={"/Home"} />;
+    // }
     return (
       <div className="wrapper">
         <div className="form-wrapper">
           <h1>Sign In</h1>
           <form onSubmit={this.handleSubmit} noValidate>
-           
-           
             {/* Git hub */}
             <div className="githubID">
               <label htmlFor="githubID">Github ID</label>
@@ -111,7 +107,12 @@ class SigninComp extends Component {
               )}
             </div>
             <div className="createAccount">
-              <button type="submit">Sign in</button>
+              <button
+                onSubmit={(e) => this.props.handleInputChange(e)}
+                type="submit"
+              >
+                Sign in
+              </button>
             </div>
           </form>
         </div>
