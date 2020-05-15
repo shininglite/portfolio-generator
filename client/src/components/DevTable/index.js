@@ -36,9 +36,6 @@ export default class DevTable extends Component {
           filteredUsers: res.data.repositories,
         })
         tableData = res.data.repositories
-        console.log('7. success', res.data.repositories);
-
-        console.log(tableData.length)
       })
   }
 
@@ -126,7 +123,7 @@ export default class DevTable extends Component {
   };
 
   updateDB = (id, property) => {
-    console.log('in updateDB:  ', id, property)
+    // console.log('in updateDB:  ', id, property)
     API.updateRepositories(id, property)
       .then(res => {
         console.log('7. success');
@@ -137,7 +134,7 @@ export default class DevTable extends Component {
   }
 
   showDevRepo = (repo) => {
-    console.log('clicked', repo)
+    // console.log('clicked', repo)
     let id = tableData.findIndex(e => e.repoID === repo)
     console.log('id: ', id, 'deployLink: ', tableData[id].deploymentLink)
     console.log(tableData[id]._id)
