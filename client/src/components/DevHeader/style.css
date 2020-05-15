@@ -12,7 +12,8 @@
   border: none;
 }
 
-/* .navbar-toggler .line{
+/* // navbar toggler .line not working
+.navbar-toggler .line{
   width: 100%;
   float: left;
   height: 2px;
