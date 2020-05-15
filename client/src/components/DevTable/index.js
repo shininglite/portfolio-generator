@@ -29,15 +29,13 @@ export default class DevTable extends Component {
     console.log('1.  in componentDidMount')
     API.getActiveDeveloper()
       .then(res => {
+        console.log(res)
         this.setState({
           ...this.state,
           data: res.data.repositories,
           filteredUsers: res.data.repositories,
-          repoID: res.data.repositories.repoID
         })
-        console.log('7. success', res.data.repositories[0].repoID, res.data.repositories[0].repoName);
         tableData = res.data.repositories
-        console.log(tableData[0].repoID)
       })
   }
 
@@ -125,7 +123,7 @@ export default class DevTable extends Component {
   };
 
   updateDB = (id, property) => {
-    console.log('in updateDB:  ', id, property)
+    // console.log('in updateDB:  ', id, property)
     API.updateRepositories(id, property)
       .then(res => {
         console.log('7. success');
@@ -136,7 +134,7 @@ export default class DevTable extends Component {
   }
 
   showDevRepo = (repo) => {
-    console.log('clicked', repo)
+    // console.log('clicked', repo)
     let id = tableData.findIndex(e => e.repoID === repo)
     console.log('id: ', id, 'deployLink: ', tableData[id].deploymentLink)
     console.log(tableData[id]._id)
