@@ -5,23 +5,22 @@ import Button from "react-bootstrap/Button";
 
 // import DevDataContext from "../utils/DevDataContext";
 
-export default function searchBar({ handleInputChange }) {
+export default function searchBar({ resetSearch, handleInputChange }) {
   // const { devData, setDevData } = useContext(DevDataContext);
   // console.log(props);
   return (
     <InputGroup>
       <FormControl
-        placeholder="Recipient's username"
-        aria-label="Recipient's username"
+        placeholder="Search"
+        aria-label="Search"
         aria-describedby="basic-addon2"
         onChange={(e) => handleInputChange(e)}
       />
       <InputGroup.Append>
         <Button
-          // onChange={(e) => {
-          //   console.log("got it");
-          //   props.resetSearch(e);
-          // }}
+          onClick={(e) => {
+            resetSearch(e);
+          }}
           variant="outline-secondary"
         >
           Clear
