@@ -17,6 +17,7 @@ export default {
   // Call this function to find the active Developer.  You do not need to pass anything in.  If none are active, it is not setup yet.
 
   getActiveDeveloper: function () {
+    // console.log('/src/utils/API.js  getActiveDeveloper')
     return axios.get("/api/devData/active");
   },
 

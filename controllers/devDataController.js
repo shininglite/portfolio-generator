@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 module.exports = {
   // Get the active developer
   findActiveDeveloper: function (req, res) {
+    // console.log('in devDataController.js')
     db.Developer.findOne({
       active: true,
     })
