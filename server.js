@@ -1,3 +1,4 @@
+const path = require('path')
 // load npm package express, primarily for the router
 const express = require("express");
 // import npm package mongoose, the ODM for mongo database
@@ -19,6 +20,10 @@ if (process.env.NODE_ENV === "production") {
 
 // Add routes, both API and HTML.  Defaults to /routes/index.js
 app.use(routes);
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // Connect to the Mongo DB (portfolio_db)
 mongoose.connect(
