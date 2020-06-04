@@ -13,9 +13,9 @@ router.use("/api", apiRoutes);
 // Call utils routes.  The only currently here is the "synch" (to synch github with your database)
 router.use("/util", utilRoutes);
 
-// If no API routes are hit, send the React app (landing page)
-router.use((req, res) =>
-  res.sendFile(path.join(__dirname, "../client/scr/index.html"))
-);
+// // If no API routes are hit, send the React app (landing page) NOTE: REMOVED BY JOHN 
+// router.use((req, res) =>
+//   res.sendFile(path.join(__dirname, "../client/scr/index.html"))
+// );
 
 module.exports = router;
